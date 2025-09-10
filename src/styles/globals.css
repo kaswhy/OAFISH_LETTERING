@@ -1,3 +1,6 @@
+@import "../design-system/typography.css";
+@import "../design-system/tokens.css";
+
 @font-face {
     font-family: 'Yoon-Childfundkorea-DaeHan';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408@1.0/YoonChildfundkoreaDaeHan.woff2') format('woff2');
@@ -30,6 +33,3 @@ body {
   padding-right: max(16px, env(safe-area-inset-right));
   padding-bottom: max(16px, env(safe-area-inset-bottom));
 }
-
-@import "../design-system/typography.css";
-@import "../design-system/tokens.css";
