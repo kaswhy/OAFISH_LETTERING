@@ -1,0 +1,35 @@
+@import "../design-system/typography.css";
+@import "../design-system/tokens.css";
+
+@font-face {
+    font-family: 'Yoon-Childfundkorea-DaeHan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408@1.0/YoonChildfundkoreaDaeHan.woff2') format('woff2');
+    font-weight: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Yoon-Childfundkorea-Manseh';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408@1.0/YoonChildfundkoreaManSeh.woff2') format('woff2');
+    font-weight: normal;
+    font-display: swap;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--color-white);
+  color: var(--color-main1);
+}
+
+.container {
+  width: 100%;
+  max-width: 430px;    
+  margin: 0 auto;      
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--color-white);
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+}

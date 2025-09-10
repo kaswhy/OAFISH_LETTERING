@@ -1,0 +1,16 @@
+:root {
+  /* black & white */
+  --color-white: #F9F9F9;
+  --color-black-60: rgba(0,0,0,0.6);
+
+  /* main */
+  --color-main1: #3B332F;
+  --color-main2: #6E5133;
+  --color-main3: #94918E;
+  --color-main4: #F0ECE8;
+  --color-main5: #D4D4D4;
+
+  /* point */
+  --color-point1: #23A7C1;
+  --color-point2: #D9E0C5;
+}
