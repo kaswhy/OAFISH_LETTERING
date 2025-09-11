@@ -1,0 +1,13 @@
+.btn {
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.img {
+    display: block;
+}
