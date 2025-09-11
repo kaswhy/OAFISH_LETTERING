@@ -1,20 +1,8 @@
-/** @type { import('@storybook/nextjs-vite').Preview } */
-const preview = {
-  parameters: {
-    controls: {
-      matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
-      },
-    },
+import "../src/styles/globals.css";
 
-    a11y: {
-      // 'todo' - show a11y violations in the test UI only
-      // 'error' - fail CI on a11y violations
-      // 'off' - skip a11y checks entirely
-      test: "todo"
-    }
+export const parameters = {
+  layout: "centered",
+  backgrounds: {
+    default: "light",
   },
 };
-
-export default preview;
