@@ -1,7 +1,7 @@
 export const runtime = "nodejs";
 
 import prisma from "@/lib/prisma";
-import { ok, notFound } from "@/lib/http";
+import { ok, notFound, badRequest } from "@/lib/http";
 import { withError } from "@/lib/withError";
 
 export const GET = withError(async (_req, { params }) => {
