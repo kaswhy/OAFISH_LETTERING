@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useMemo } from "react";
 import clsx from "clsx";
-import styles from "@/styles/feature/Plant.module.css";
+import styles from "@/styles/ui/Plant.module.css";
 
 function breakLabel(text) {
   return text.match(/.{1,5}/g) ?? [];

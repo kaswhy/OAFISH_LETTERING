@@ -1,7 +1,7 @@
 import Plant from "./Plant"
 
 export default {
-  title: "FEATURE/Plant",
+  title: "UI/Plant",
   component: Plant,
   tags: ["autodocs"],
   args: {label: "닉네임", active: false},
