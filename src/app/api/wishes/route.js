@@ -2,12 +2,7 @@ export const runtime = "nodejs";
 
 import prisma from "@/lib/prisma";
 import { ok, fail, create, badRequest, internalError } from "@/lib/http";
-
-import {
-  listQuerySchema,
-  createWishSchema,
-  phoneSchema,
-} from "@/lib/validation";
+import { listQuerySchema, createWishSchema } from "@/lib/validation";
 
 export async function GET(req) {
   try {
