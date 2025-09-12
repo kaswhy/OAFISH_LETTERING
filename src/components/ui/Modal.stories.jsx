@@ -1,4 +1,3 @@
-// Modal.stories.js
 import Modal from "./Modal";
 
 export default {

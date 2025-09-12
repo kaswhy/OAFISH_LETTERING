@@ -29,6 +29,7 @@
     white-space: pre-line;
     text-align: left;
     word-break: keep-all;
+    white-space: pre-wrap; 
     overflow-wrap: anywhere;
 }
 

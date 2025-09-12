@@ -1,4 +1,3 @@
-// ModalWithWish.stories.jsx
 import { useEffect, useState } from "react";
 import Modal from "./Modal";
 import WishModalContent from "./modal-contents/WishModalContent";

@@ -1,51 +1,85 @@
+"use client";
+
 import Image from "next/image";
-import { useMemo } from "react";
 import clsx from "clsx";
 import styles from "@/styles/ui/Plant.module.css";
 
-function breakLabel(text) {
-  return text.match(/.{1,5}/g) ?? [];
+const SRC_MAP = {
+  daisy: "/assets/plants/daisy.svg",
+  rose: "/assets/plants/rose.svg",
+  freesia: "/assets/plants/freesia.svg",
+  mugung: "/assets/plants/mugung.svg",
+  susun: "/assets/plants/susun.svg",
+  sunflower: "/assets/plants/sunflower.svg",
+};
+
+const NAME_MAP = {
+  daisy: "데이지",
+  rose: "장미",
+  freesia: "프리지아",
+  mugung: "무궁화",
+  susun: "수선화",
+  sunflower: "해바라기",
+};
+
+function breakLabelGrapheme(text, size = 5) {
+  const s = text ?? "";
+  if (!s) return [];
+  if (typeof Intl !== "undefined" && Intl.Segmenter) {
+    const seg = new Intl.Segmenter(undefined, { granularity: "grapheme" });
+    const arr = Array.from(seg.segment(s), (x) => x.segment);
+    const chunks = [];
+    for (let i = 0; i < arr.length; i += size)
+      chunks.push(arr.slice(i, i + size).join(""));
+    return chunks;
+  }
+  return s.match(/.{1,5}/g) ?? [s];
 }
 
 export default function Plant({
   type = "daisy",
-  label,
+  label = "",
   active = false,
+  className,
   onClick,
+  ...rest
 }) {
-  const src = useMemo(() => {
-    const map = {
-      daisy: "/assets/plants/daisy.svg",
-      rose: "/assets/plants/rose.svg",
-      freesia: "/assets/plants/freesia.svg",
-      mugung: "/assets/plants/mugung.svg",
-      susun: "/assets/plants/susun.svg",
-      sunflower: "/assets/plants/sunflower.svg",
-    };
-    return map[type] ?? map.daisy;
-  }, [type]);
+  const chosen = Object.prototype.hasOwnProperty.call(SRC_MAP, type)
+    ? type
+    : "daisy";
+  const src = SRC_MAP[chosen];
+  const alt = `${NAME_MAP[chosen]} 아이콘`;
+  const chunks = label ? breakLabelGrapheme(label, 5) : [];
 
   return (
     <button
       type="button"
-      className={clsx(styles.item, active && styles.active)}
+      className={clsx(styles.item, active && styles.active, className)}
+      data-active={active ? "" : undefined}
+      aria-pressed={active}
+      aria-label={label || NAME_MAP[chosen]}
+      title={label || NAME_MAP[chosen]}
       onClick={onClick}
+      {...rest}
     >
       <div className={styles.imageWrap}>
         <Image
           src={src}
-          alt={type}
+          alt={alt}
           className={styles.image}
-          width={93.33}
-          height={93.33}
+          width={94}
+          height={94}
+          draggable={false}
+          priority={false}
         />
       </div>
+
       {label && (
-        <div className={styles.label}>
-          {breakLabel(label).map((chunk, i) => (
+        <div className={styles.label} aria-hidden="true">
+          {chunks.map((chunk, i) => (
             <span key={i}>
               {chunk}
-              <br />
+              {i < chunks.length - 1 && <br />}
             </span>
           ))}
         </div>

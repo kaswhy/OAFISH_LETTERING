@@ -29,6 +29,6 @@
     text-align: center;
 
     word-break: break-all;
-    overflow-wrap: break-all;
+    overflow-wrap: anywhere;
     white-space: normal;
 }
