@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum PlantKey {
+  daisy
+  rose
+  mugung
+  sunflower
+  freesia
+  susun
+}
+
+model Wish {
+  id Int @id @default(autoincrement())
+  plantKey PlantKey
+  nickname String @db.VarChar(10)
+  phoneNumber String @db.VarChar(11)
+  content String @db.VarChar(200)
+  createdAt DateTime @default(now())
+}
