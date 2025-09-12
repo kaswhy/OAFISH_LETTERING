@@ -1,0 +1,33 @@
+.backdrop {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+
+    background: var(--color-black_60);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+.dialog {
+  position: relative;
+  width: 312px;
+  min-height: 390px;
+  max-height: 80vh;
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;        
+
+  background: var(--color-main4);
+  border-radius: 12px;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 16px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
