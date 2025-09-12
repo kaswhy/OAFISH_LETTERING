@@ -1,0 +1,21 @@
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    width: 98px;
+    height: 110px;
+
+    border-radius: 8px;
+    background: var(--color-main4);
+
+    cursor: pointer;
+    transition: border 0.1s ease;
+}
+
+.selected {
+    border: 1px solid var(--color-point1);
+    border-radius: 8px;
+    box-shadow: 0 0 10px 0 rgba(35, 167, 193, 0.5);
+}
