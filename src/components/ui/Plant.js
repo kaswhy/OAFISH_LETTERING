@@ -11,7 +11,6 @@ export default function Plant({
   type = "daisy",
   label,
   active = false,
-  size,
   onClick,
 }) {
   const src = useMemo(() => {
