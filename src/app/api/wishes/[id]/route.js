@@ -6,10 +6,19 @@ import { withError } from "@/lib/withError";
 
 export const GET = withError(async (_req, { params }) => {
   const id = Number(params.id);
-  if (Number.isNaN(id)) return badRequest('Invalid id');
+  if (Number.isNaN(id)) return badRequest("Invalid id");
 
-  const wish = await prisma.wish.findUnique({ where: { id } });
-  if (!wish) return notFound('존재하지 않는 위시입니다.');
+  const wish = await prisma.wish.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      plantKey: true,
+      nickname: true,
+      content: true,
+      createdAt: true,
+    },
+  });
+  if (!wish) return notFound("존재하지 않는 위시입니다.");
 
   return ok(wish);
 });

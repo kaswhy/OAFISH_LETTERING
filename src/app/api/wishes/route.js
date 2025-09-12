@@ -20,6 +20,12 @@ export async function GET(req) {
     const [total, items] = await Promise.all([
       prisma.wish.count({ where }),
       prisma.wish.findMany({
+        select: {
+          id: true,
+          plantKey: true,
+          nickname: true,
+          createdAt: true,
+        },
         where,
         orderBy: { createdAt: "desc" },
         skip: (page - 1) * size,
