@@ -30,7 +30,7 @@ export async function GET(req) {
     return ok({ items, page, size, total });
   } catch (e) {
     console.error(e);
-    return internalError("Internal Server Error", parsed.error.flatten());
+    return internalError("Internal Server Error");
   }
 }
 
@@ -46,6 +46,6 @@ export async function POST(req) {
     return create(wish);
   } catch (e) {
     console.error(e);
-    return internalError("Internal Server Error", parsed.error.flatten());
+    return internalError("Internal Server Error");
   }
 }
