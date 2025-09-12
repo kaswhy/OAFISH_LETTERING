@@ -16,7 +16,7 @@ export default function SearchInput({
   return (
     <div className={clsx(styles.box, focus && styles.focus, className)}>
       <IconButton
-        src="assets/ic_search.svg"
+        src="/assets/ic_search.svg"
         ariaLabel="검색"
         onClick={onSearch}
         className={clsx(styles.iconBtn, styles.leftIcon)}
@@ -35,7 +35,7 @@ export default function SearchInput({
 
       {value && (
         <IconButton
-          src="assets/ic_close.svg"
+          src="/assets/ic_close.svg"
           ariaLabel="지우기"
           onClick={onClear}
           className={styles.iconBtn}
