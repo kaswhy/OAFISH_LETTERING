@@ -23,4 +23,7 @@ model Wish {
   phoneNumber String @db.VarChar(11)
   content String @db.VarChar(200)
   createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([nickname, createdAt])
 }
