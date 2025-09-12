@@ -10,17 +10,17 @@
 }
 
 .dialog {
-  position: relative;
-  width: 312px;
-  min-height: 390px;
-  max-height: 80vh;
+    position: relative;
+    width: 312px;
+    min-height: 390px;
+    max-height: 80vh;
 
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;        
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 
-  background: var(--color-main4);
-  border-radius: 12px;
+    background: var(--color-main4);
+    border-radius: 12px;
 }
 
 .close {
