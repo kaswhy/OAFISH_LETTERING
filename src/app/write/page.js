@@ -40,11 +40,13 @@ function WriteForm() {
   const qc = useQueryClient();
   const router = useRouter();
 
-  const { mutate, isPending } = useMutation({
+ const { mutate, isPending } = useMutation({
     mutationFn: createWish,
-    onSuccess: () => {
+    onSuccess: (createdWish) => {
       qc.invalidateQueries({ queryKey: ["wishes"] });
-      router.push("/");
+      if (createdWish && createdWish.data.id) {
+        router.push(`/result?id=${createdWish.data.id}`);
+      }
     },
   });
 
