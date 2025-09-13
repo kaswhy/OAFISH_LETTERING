@@ -62,8 +62,8 @@
 
 .divider {
   position: relative;
-  width: 100%;
-  margin-top: 12px;
+  width: 110%;
+  margin-top: 32px;
   z-index: 10;
 }
 
