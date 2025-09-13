@@ -40,7 +40,7 @@ function WriteForm() {
   const qc = useQueryClient();
   const router = useRouter();
 
- const { mutate, isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: createWish,
     onSuccess: (createdWish) => {
       qc.invalidateQueries({ queryKey: ["wishes"] });
@@ -114,6 +114,7 @@ function WriteForm() {
               value={content}
               onChange={setContent}
               maxLength={200}
+              useGrapheme={true}
             />
           </div>
 
