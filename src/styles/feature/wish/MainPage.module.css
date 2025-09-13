@@ -1,0 +1,102 @@
+.main {
+  display: grid;
+  place-items: start center;
+
+  width: 100%;
+  min-height: 100dvh;
+
+  margin: 0;
+  padding: 0;
+
+  overflow-x: hidden;
+}
+
+.viewport {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-point2);
+}
+
+.hero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #2b2b2b;
+}
+
+.subtitle {
+  font: var(--font-main3);
+  margin-top: 53px;
+  margin-bottom: 0px;
+}
+
+.title {
+  font: var(--font-main1);
+  margin: 0px;
+}
+
+.description {
+  font: var(--font-body1);
+  margin-top: 32px;
+  margin-bottom: 20px;
+}
+
+.ctaLink {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.whyLink {
+  font: var(--font-body2);
+  margin-top: 10px;
+  background: transparent;
+  border: 0;
+  color: var(--color-main3);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.divider {
+  position: relative;
+  width: 100%;
+  margin-top: 12px;
+  z-index: 10;
+}
+
+.garden {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 100%;
+  height: 556px;
+
+  padding: 16px 0 24px;
+  margin-top: -20px;
+  overflow: hidden;
+
+  background:
+    url('/assets/character/character1.svg') no-repeat top 72px right 303px,
+    url('/assets/character/character2.svg') no-repeat top 306px left 283px,
+    var(--color-main2);
+}
+
+.gridWrap {
+  position: relative;
+  overflow: visible;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+
+  margin-top: 28px;
+  
+  height: 100%; 
+  justify-content: space-between; 
+  padding-bottom: 8px;
+}
