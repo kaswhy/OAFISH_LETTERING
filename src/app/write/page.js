@@ -1,5 +1,3 @@
-// src/app/write/page.js
-
 "use client";
 
 import { useState } from "react";
@@ -12,7 +10,6 @@ import { queryClient } from "@/lib/queryClient";
 import { createWish } from "@/lib/wishes.api";
 import { useRouter } from "next/navigation";
 
-// UI 컴포넌트 임포트
 import Button from "@/components/ui/Button";
 import SeedCard from "@/components/ui/SeedCard";
 import TextArea from "@/components/ui/TextArea";
@@ -22,7 +19,6 @@ import TermsModalContent from "@/components/ui/modal-contents/TermsModalContent"
 
 import styles from "@/styles/feature/wish/WritingPage.module.css";
 
-// 약관 내용
 const TERMS_TEXT = `[개인정보 수집·이용 동의]
 
 1. 수집 항목: 닉네임, 연락처(휴대폰 번호 또는 이메일)
@@ -68,7 +64,6 @@ function WriteForm() {
   };
 
   return (
-    // 반응형 레이아웃을 위한 래퍼(wrapper) 추가
     <div className={styles.main}>
       <div className={styles.viewport}>
         <main className={styles.content}>
@@ -147,7 +142,6 @@ function WriteForm() {
 
           <div className={styles.formActions}>
             <div className={styles.agreeContainer}>
-              {/* 체크박스 input과 이미지만 label로 감싸기 */}
               <label>
                 <input
                   type="checkbox"
@@ -158,7 +152,6 @@ function WriteForm() {
                 <span className={styles.customCheckbox}></span>
               </label>
 
-              {/* 텍스트는 label 밖으로 분리 */}
               <span className={styles.agreeText}>
                 닉네임과 연락처 수집·이용에 동의합니다
               </span>
