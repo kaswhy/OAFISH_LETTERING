@@ -5,12 +5,12 @@ import clsx from "clsx";
 import styles from "@/styles/ui/Plant.module.css";
 
 const SRC_MAP = {
-  daisy: "/assets/plants/daisy.svg",
-  rose: "/assets/plants/rose.svg",
-  freesia: "/assets/plants/freesia.svg",
-  mugung: "/assets/plants/mugung.svg",
-  susun: "/assets/plants/susun.svg",
-  sunflower: "/assets/plants/sunflower.svg",
+  daisy: "/assets/plants/daisy.png",
+  rose: "/assets/plants/rose.png",
+  freesia: "/assets/plants/freesia.png",
+  mugung: "/assets/plants/mugung.png",
+  susun: "/assets/plants/susun.png",
+  sunflower: "/assets/plants/sunflower.png",
 };
 
 const NAME_MAP = {

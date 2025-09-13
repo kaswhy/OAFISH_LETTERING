@@ -1,15 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import clsx from "clsx";
 import styles from "@/styles/ui/SeedCard.module.css";
 
 const SRC_MAP = {
-  daisy: "/assets/seeds/daisy.svg",
-  rose: "/assets/seeds/rose.svg",
-  freesia: "/assets/seeds/freesia.svg",
-  mugung: "/assets/seeds/mugung.svg",
-  susun: "/assets/seeds/susun.svg",
-  sunflower: "/assets/seeds/sunflower.svg",
+  daisy: "/assets/seeds/daisy.png",
+  rose: "/assets/seeds/rose.png",
+  freesia: "/assets/seeds/freesia.png",
+  mugung: "/assets/seeds/mugung.png",
+  susun: "/assets/seeds/susun.png",
+  sunflower: "/assets/seeds/sunflower.png",
 };
 
 export default function SeedCard({
@@ -34,7 +35,13 @@ export default function SeedCard({
       disabled={!onClick}
       {...rest}
     >
-      <img src={src} alt={`${chosen} seed`} className={styles.image} />
+      <Image
+        src={src}
+        alt={`${chosen} seed`}
+        className={styles.image}
+        width={98}
+        height={110}
+      ></Image>
     </button>
   );
 }
