@@ -7,6 +7,8 @@
     width: 98px;
     height: 110px;
 
+    border: 1px solid transparent;
+
     border-radius: 8px;
     background: var(--color-main4);
 
