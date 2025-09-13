@@ -3,7 +3,13 @@
 import clsx from "clsx";
 import styles from "@/styles/ui/Modal.module.css";
 
-export default function Modal({ open, onClose, children, className }) {
+export default function Modal({
+  open,
+  onClose,
+  children,
+  className,
+  hideCloseButton = false,
+}) {
   if (!open) return null;
 
   return (
@@ -16,9 +22,11 @@ export default function Modal({ open, onClose, children, className }) {
         aria-modal="true"
         className={clsx(styles.dialog, className)}
       >
-        <button className={styles.close} onClick={onClose} aria-label="닫기">
-          <img src="/assets/ic_close.svg" alt="닫기" />
-        </button>
+        {!hideCloseButton && (
+          <button className={styles.close} onClick={onClose} aria-label="닫기">
+            <img src="/assets/ic_close.svg" alt="닫기" />
+          </button>
+        )}
         {children}
       </div>
     </div>
