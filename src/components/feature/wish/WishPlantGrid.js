@@ -39,7 +39,7 @@ export default function WishPlantGrid({ page, nickname, onCardClick, onMeta }) {
   }
 
   if (items.length === 0) {
-    return <div style={messageStyle}>앗! 쪽지가 없어요.</div>;
+    return <div style={messageStyle}>앗! 새싹이 없어요.</div>;
   }
 
   return (
