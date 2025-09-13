@@ -18,9 +18,9 @@ export default function WishDetailModal({ id, onClose }) {
       {isError && <div>불러오지 못했어요.</div>}
       {data && (
         <WishModalContent
-          type={data.plantKey}
-          text={data.content}
-          author={data.nickname}
+          type={data.data.plantKey}
+          text={data.data.content}
+          author={data.data.nickname}
         />
       )}
     </Modal>

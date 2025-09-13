@@ -12,7 +12,9 @@ export default function WishPlantGrid({ page, nickname, onCardClick, onMeta }) {
   });
 
   const items = data?.items ?? [];
-  const totalPages = data ? Math.max(1, Math.ceil(data.total / data.size)) : 1;
+  const perPage = Number.isFinite(data?.size) ? data.size : 9;
+  const total = Number.isFinite(data?.total) ? data.total : 0;
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
 
   useEffect(() => {
     onMeta?.({ totalPages });
