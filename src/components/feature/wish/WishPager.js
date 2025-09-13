@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import clsx from "clsx";
-import styles from "./WishPager.module.css";
+import styles from "@/styles/feature/wish/WishPager.module.css";
 
 export default function WishPager({ page, totalPages, onPrev, onNext }) {
   const leftDisabled = page <= 1;
