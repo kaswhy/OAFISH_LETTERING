@@ -28,18 +28,47 @@ function Result() {
     enabled: !!wishId,
   });
 
-  const handleSaveImage = () => {
+  const handleSaveImage = async () => {
     const node = modalContentRef.current;
-    if (node) {
-      htmlToImage
-        .toPng(node, {})
-        .then((dataUrl) => {
-          const link = document.createElement("a");
-          link.download = "oafish-wish.png";
-          link.href = dataUrl;
-          link.click();
-        })
-        .catch((err) => console.error("이미지 저장에 실패했습니다.", err));
+    if (!node) return;
+
+    try {
+      if (document.fonts?.ready) {
+        await document.fonts.ready;
+      } else {
+        await new Promise((r) => setTimeout(r, 200));
+      }
+
+      node.classList.add(styles.captureFreeze);
+
+      const rect = node.getBoundingClientRect();
+      const scale = Math.max(2, Math.min(3, window.devicePixelRatio || 2));
+
+      const dataUrl = await htmlToImage.toPng(node, {
+        cacheBust: true,
+        backgroundColor: "#F0ECE8",
+        pixelRatio: scale,
+        canvasWidth: Math.round(rect.width * scale),
+        canvasHeight: Math.round(rect.height * scale),
+        style: {
+          transform: "none",
+          transformOrigin: "top left",
+          position: "static",
+          margin: "0",
+          boxShadow: "none",
+          letterSpacing: "normal",
+          lineHeight: "normal",
+        },
+      });
+
+      const link = document.createElement("a");
+      link.download = "oafish-wish.png";
+      link.href = dataUrl;
+      link.click();
+    } catch (err) {
+      console.error("이미지 저장에 실패했습니다.", err);
+    } finally {
+      node?.classList.remove(styles.captureFreeze);
     }
   };
 
@@ -49,6 +78,7 @@ function Result() {
     return <div className={styles.message}>새싹을 불러오지 못했습니다.</div>;
   return (
     <div className={styles.container}>
+      <h2 className={styles.heading}>내 쪽지와 씨앗이 심어졌어요!</h2>
       <div ref={modalContentRef} className={styles.modalDialog}>
         <WishModalContent
           type={wish.data.plantKey}
