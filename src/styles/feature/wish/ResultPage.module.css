@@ -1,3 +1,9 @@
+.captureFreeze,
+.captureFreeze * {
+  animation: none !important;
+  transition: none !important;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -8,10 +14,16 @@
   background-color: var(--color-main4);
 }
 
+.heading {
+  text-align: center;
+  font: var(--font-main1);
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+
 .modalDialog {
-  width: 100%;
-  max-width: 400px; 
-  background: var(--color-main4); 
+  width: 312px;
+  background: var(--color-main4);
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }

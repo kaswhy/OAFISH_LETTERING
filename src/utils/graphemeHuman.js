@@ -19,7 +19,6 @@ export function countGraphemesHuman(str) {
 export function sliceGraphemesHuman(str, max) {
   if (max == null) return str;
 
-  // Intl.Segmenter가 있으면 그걸로 안전하게 자르기
   if (typeof Intl !== "undefined" && Intl.Segmenter) {
     const seg = new Intl.Segmenter("ko", { granularity: "grapheme" });
     const parts = Array.from(seg.segment(str), s => s.segment);
