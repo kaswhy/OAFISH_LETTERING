@@ -1,95 +1,88 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
 
-export default function Home() {
+import Link from "next/link";
+import { useState } from "react";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "@/lib/queryClient";
+
+import WishSearchBox from "@/components/feature/wish/WishSearchBox";
+import WishPlantGrid from "@/components/feature/wish/WishPlantGrid";
+import WishDetailModal from "@/components/feature/wish/WishDetailModal";
+import WishPager from "@/components/feature/wish/WishPager";
+import Button from "@/components/ui/Button";
+
+import styles from "@/styles/feature/wish/MainPage.module.css";
+
+export default function MainPage() {
+  const [nickname, setNickname] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [selectedId, setSelectedId] = useState(null);
+
   return (
-    <div className={styles.page}>
+    <QueryClientProvider client={queryClient}>
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+        <div className={styles.viewport}>
+          <section className={styles.hero}>
+            <div className={styles.headline}>
+              <h3 className={styles.subtitle}>OAFISH 25 FW : IMMATURE</h3>
+              <h1 className={styles.title}>OAFISH WISH PROJECT</h1>
+              <p className={styles.description}>
+                지금 간절히 이루고 싶은 것이 있나요?
+                <br />
+                나의 꿈을 작성한 쪽지와 함께 씨앗을 심어보세요
+                <br />
+                2025년이 가기 전, 활짝 핀 나의 꽃과 함께
+                <br />
+                응원의 답장을 전해드려요
+              </p>
+            </div>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+            <Link href="/write" className={styles.ctaLink}>
+              <Button state="active">
+                내 쪽지 심기
+              </Button>
+            </Link>
+
+            <Link href="https://oafish.kr" className={styles.whyLink}>
+              왜 오피쉬는 쪽지를 심나요?
+            </Link>
+          </section>
+
+          <img className={styles.divider} src="/assets/divider.svg" />
+          <section className={styles.garden}>
+            <div className={styles.searchInner}>
+              <WishSearchBox
+                onSearch={(v) => {
+                  setNickname(v);
+                  setPage(1);
+                }}
+              />
+            </div>
+            <div className={styles.gridWrap}>
+              <WishPlantGrid
+                page={page}
+                nickname={nickname}
+                onCardClick={setSelectedId}
+                onMeta={({ totalPages }) => setTotalPages(totalPages)}
+              />
+              {totalPages > 1 && (
+                <WishPager
+                  page={page}
+                  totalPages={totalPages}
+                  onPrev={() => setPage((p) => Math.max(1, p - 1))}
+                  onNext={() => setPage((p) => Math.min(totalPages, p + 1))}
+                />
+              )}
+            </div>
+          </section>
+
+          <WishDetailModal
+            id={selectedId}
+            onClose={() => setSelectedId(null)}
+          />
         </div>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    </QueryClientProvider>
   );
 }

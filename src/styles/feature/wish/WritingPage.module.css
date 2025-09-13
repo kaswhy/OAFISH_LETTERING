@@ -1,0 +1,174 @@
+.main {
+    display: grid;
+    place-items: start center;
+    width: 100%;
+    min-height: 100dvh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.viewport {
+    position: relative;
+    width: 100%;
+    max-width: 430px;
+    height: 100dvh;
+    overflow-y: auto;
+    background: var(--color-white);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.content {
+    padding: 0 24px 0;
+}
+
+.hero {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--color-main1);
+}
+
+.subtitle {
+    font: var(--font-main3);
+    margin-top: 53px;
+    margin-bottom: 0px;
+}
+
+.title {
+    font: var(--font-main1);
+    margin: 0px;
+}
+
+.description {
+    font: var(--font-body1);
+    margin-top: 32px;
+    margin-bottom: 20px;
+}
+
+.formSection {
+    margin-bottom: 42px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.step1 {
+    font: var(--font-main3);
+    color: var(--color-main1);
+    text-align: center;
+    margin-bottom: 11px;
+}
+
+.seedGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 11px;
+    row-gap: 9px;
+    flex-wrap: wrap;
+}
+
+.step2 {
+    font: var(--font-main3);
+    color: var(--color-main1);
+    margin-bottom: 22px;
+    text-align: center;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.step3 {
+    font: var(--font-main3);
+    color: var(--color-main1);
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.label {
+    font: var(--font-main3);
+    color: var(--color-main1);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 16px;
+    margin-bottom: 4px;
+}
+
+.formActions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 76px;
+    padding-bottom: 59px;
+}
+
+.agreeContainer {
+    display: flex;
+    align-items: center;
+    cursor: default;
+    user-select: none;
+    margin-bottom: 14px;
+}
+
+.agreeContainer>label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.agreeText {
+    font-family: "Yoon-Childfundkorea-Daehan", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    color: var(--color-main1);
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 100%;
+    letter-spacing: 0;
+    white-space: nowrap;
+    flex-grow: 0;
+}
+
+.hiddenCheckbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.customCheckbox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    background-image: url('/assets/checkbox/deselected.svg');
+}
+
+.hiddenCheckbox:checked+.customCheckbox {
+    background-image: url('/assets/checkbox/selected.svg');
+}
+
+.viewTermsButton {
+    font-family: "Yoon-Childfundkorea-Daehan", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    color: var(--color-main1);
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 100%;
+    letter-spacing: 0;
+    white-space: nowrap;
+    flex-grow: 0;
+
+    margin-left: 6px;
+    background: none;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+}

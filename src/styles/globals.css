@@ -15,6 +15,18 @@
   font-display: swap;
 }
 
+:root {
+  --canvas-w: 360px;
+  --inner-w: 312px;
+}
+
+@media (max-width: 420px) {
+  :root {
+    --canvas-w: 100vw;
+    --inner-w: calc(100vw - 48px);
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -23,6 +35,9 @@ html,
 body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
 }
 
 body {

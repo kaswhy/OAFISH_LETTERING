@@ -4,8 +4,8 @@ import prisma from "@/lib/prisma";
 import { ok, notFound, badRequest } from "@/lib/http";
 import { withError } from "@/lib/withError";
 
-export const GET = withError(async (_req, { params }) => {
-  const raw = params.id;
+export const GET = withError(async (_req, ctx) => {
+  const { id: raw } = await ctx.params;
   if (!/^\d+$/.test(raw))
     return badRequest("id는 양의 정수만 입력할 수 있습니다.");
   const id = Number(raw);
