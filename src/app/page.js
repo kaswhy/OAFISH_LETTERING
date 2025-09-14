@@ -39,9 +39,7 @@ export default function MainPage() {
             </div>
 
             <Link href="/write" className={styles.ctaLink}>
-              <Button state="active">
-                내 쪽지 심기
-              </Button>
+              <Button state="active">내 쪽지 심기</Button>
             </Link>
 
             <Link href="https://oafish.kr" className={styles.whyLink}>
@@ -60,20 +58,22 @@ export default function MainPage() {
               />
             </div>
             <div className={styles.gridWrap}>
-              <WishPlantGrid
-                page={page}
-                nickname={nickname}
-                onCardClick={setSelectedId}
-                onMeta={({ totalPages }) => setTotalPages(totalPages)}
-              />
-              {totalPages > 1 && (
-                <WishPager
+              <div className={styles.plantGridArea}>
+                <WishPlantGrid
                   page={page}
-                  totalPages={totalPages}
-                  onPrev={() => setPage((p) => Math.max(1, p - 1))}
-                  onNext={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  nickname={nickname}
+                  onCardClick={setSelectedId}
+                  onMeta={({ totalPages }) => setTotalPages(totalPages)}
                 />
-              )}
+                {totalPages > 1 && (
+                  <WishPager
+                    page={page}
+                    totalPages={totalPages}
+                    onPrev={() => setPage((p) => Math.max(1, p - 1))}
+                    onNext={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  />
+                )}
+              </div>
             </div>
           </section>
 

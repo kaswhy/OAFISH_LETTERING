@@ -6,14 +6,15 @@
   border: none;
   padding: 0;
   cursor: pointer;
+  z-index: 10;
 }
 
 .left {
-  left: 0px;
+  left: calc(50% - 50vw + env(safe-area-inset-left));
 }
 
 .right {
-  right: 0px;
+  right: calc(50% - 50vw + env(safe-area-inset-right));
 }
 
 .disabled {
