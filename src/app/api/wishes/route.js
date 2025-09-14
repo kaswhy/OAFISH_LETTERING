@@ -48,7 +48,10 @@ export async function POST(req) {
     if (!parsed.success) {
       return badRequest("Invalid body", parsed.error.flatten());
     }
-    const wish = await prisma.wish.create({ data: parsed.data });
+    const wish = await prisma.wish.create({
+      data: parsed.data,
+      select: { id: true },
+    });
     return create(wish);
   } catch (e) {
     console.error(e);
