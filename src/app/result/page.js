@@ -88,7 +88,7 @@ function Result() {
       </div>
 
       <div className={styles.buttonGroup}>
-        <Button onClick={handleSaveImage}>이미지로 저장하기</Button>
+        <Button className={styles.save} onClick={handleSaveImage}>이미지로 저장하기</Button>
         <Button state="active" onClick={() => router.push("/")}>
           새싹 보러가기
         </Button>

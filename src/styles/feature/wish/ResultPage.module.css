@@ -38,6 +38,11 @@
   max-width: 400px;
 }
 
+.save {
+  background-color: var(--color-white);
+  color: var(--color-point1);
+}
+
 .message {
   display: grid;
   place-items: center;
