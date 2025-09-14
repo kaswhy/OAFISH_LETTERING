@@ -18,16 +18,13 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
 }
 
-.content {
-    padding: 0 24px 0;
-}
-
 .hero {
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: var(--color-main1);
+    background-color: var(--color-point2);
 }
 
 .subtitle {
@@ -48,6 +45,8 @@
 }
 
 .formSection {
+        padding: 0 24px 0;
+
     margin-bottom: 42px;
     display: flex;
     flex-direction: column;
