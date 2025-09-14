@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import styles from "@/styles/ui/modal-contents/WishModalContent.module.css";
 
 const SRC_MAP = {
@@ -26,11 +25,7 @@ function normalizeText(t) {
   return s.replace(/\r\n/g, "\n").replace(/\\r\\n|\\n/g, "\n");
 }
 
-export default function WishModalContent({
-  type = "daisy",
-  text = "",
-  author = "",
-}) {
+export default function WishModalContent({ type, text = "", author = "" }) {
   const chosen = Object.prototype.hasOwnProperty.call(SRC_MAP, type)
     ? type
     : "daisy";
@@ -41,13 +36,14 @@ export default function WishModalContent({
   return (
     <div className={styles.wrap} data-type={chosen}>
       <div className={styles.header}>
-        <Image
+        <img
           src={src}
           alt={alt}
-          loading="lazy"
-          decoding="async"
+          loading="eager"
+          decoding="sync"
           width={105}
           height={105}
+          data-plant-img
         />
       </div>
       <div className={styles.body}>

@@ -2,6 +2,10 @@
 .captureFreeze * {
   animation: none !important;
   transition: none !important;
+  transform: none !important;
+  filter: none !important;
+  font-synthesis: none !important;
+  -webkit-font-smoothing: antialiased;
 }
 
 .container {
