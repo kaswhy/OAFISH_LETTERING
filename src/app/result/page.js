@@ -4,7 +4,6 @@ import { Suspense, useRef, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { QueryClientProvider, useQuery } from "@tanstack/react-query";
 import html2canvas from "html2canvas";
-
 import { getWish } from "@/lib/wishes.api";
 import { queryClient } from "@/lib/queryClient";
 
@@ -114,9 +113,7 @@ function Result() {
           console.log("Starting page preparation...");
 
           await ensureFontsLoaded();
-
           await preloadResources(node);
-
           await new Promise((resolve) => setTimeout(resolve, 300));
 
           console.log("Page preparation completed");
@@ -139,10 +136,8 @@ function Result() {
     try {
       console.log("Starting image capture...");
 
-      // ✅ 캡처 전 폰트 재확인
       await ensureFontsLoaded();
 
-      // ✅ DOM 안정화
       node.style.transform = "translateZ(0)";
       node.offsetHeight;
       await rAF();
@@ -163,7 +158,6 @@ function Result() {
         foreignObjectRendering: false,
         logging: false,
         letterRendering: true,
-
         onclone: (clonedDoc) => {
           const clonedElements = clonedDoc.querySelectorAll("*");
           clonedElements.forEach((el) => {
@@ -180,7 +174,6 @@ function Result() {
 
         imageTimeout: 10000,
         removeContainer: true,
-
         width: node.scrollWidth,
         height: node.scrollHeight,
 
@@ -195,18 +188,7 @@ function Result() {
       const link = document.createElement("a");
       link.download = "oafish-wish.png";
       link.href = dataUrl;
-
-      if (isIOS) {
-        const newWindow = window.open();
-        if (newWindow) {
-          newWindow.document.write(
-            `<img src="${dataUrl}" style="max-width:100%;height:auto;" />`
-          );
-          newWindow.document.title = "oafish-wish.png";
-        }
-      } else {
-        link.click();
-      }
+      link.click();
 
       node.style.transform = "";
 
@@ -255,7 +237,7 @@ function Result() {
 
         <div className={styles.buttonGroup}>
           <Button
-            className={styles.save}
+            style={{ backgroundColor: "#D2EDF3", color: "var(--color-point1)" }}
             onClick={handleSaveImage}
             disabled={isCapturing}
           >
