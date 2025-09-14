@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useSwipeable } from "react-swipeable";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 
@@ -18,6 +19,20 @@ export default function MainPage() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [selectedId, setSelectedId] = useState(null);
+  const [isSwiping, setIsSwiping] = useState(false);
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => setPage((p) => Math.min(totalPages, p + 1)),
+    onSwipedRight: () => setPage((p) => Math.max(1, p - 1)),
+    onSwiping: ({ deltaX, deltaY }) => {
+      if (Math.abs(deltaX) > Math.abs(deltaY)) setIsSwiping(true);
+    },
+    onSwiped: () => setIsSwiping(false),
+    trackTouch: true,
+    trackMouse: false,
+    delta: 30,
+    preventScrollOnSwipe: true,
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -39,9 +54,7 @@ export default function MainPage() {
             </div>
 
             <Link href="/write" className={styles.ctaLink}>
-              <Button state="active">
-                내 쪽지 심기
-              </Button>
+              <Button state="active">내 쪽지 심기</Button>
             </Link>
 
             <Link href="https://oafish.kr" className={styles.whyLink}>
@@ -59,21 +72,26 @@ export default function MainPage() {
                 }}
               />
             </div>
+
             <div className={styles.gridWrap}>
-              <WishPlantGrid
-                page={page}
-                nickname={nickname}
-                onCardClick={setSelectedId}
-                onMeta={({ totalPages }) => setTotalPages(totalPages)}
-              />
-              {totalPages > 1 && (
-                <WishPager
+              <div className={styles.plantGridArea} {...handlers}>
+                <WishPlantGrid
                   page={page}
-                  totalPages={totalPages}
-                  onPrev={() => setPage((p) => Math.max(1, p - 1))}
-                  onNext={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  nickname={nickname}
+                  onCardClick={(id) => {
+                    if (!isSwiping) setSelectedId(id);
+                  }}
+                  onMeta={({ totalPages }) => setTotalPages(totalPages)}
                 />
-              )}
+                {totalPages > 1 && (
+                  <WishPager
+                    page={page}
+                    totalPages={totalPages}
+                    onPrev={() => setPage((p) => Math.max(1, p - 1))}
+                    onNext={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  />
+                )}
+              </div>
             </div>
           </section>
 

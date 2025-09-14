@@ -2,6 +2,14 @@
 .captureFreeze * {
   animation: none !important;
   transition: none !important;
+  transform: none !important;
+  filter: none !important;
+  font-synthesis: none !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+.captureHiRes.modalDialog {
+  width: calc(312px * var(--cap-scale, 1.4));
 }
 
 .container {
@@ -36,6 +44,11 @@
   margin-top: 24px;
   width: 100%;
   max-width: 400px;
+}
+
+.save {
+  background-color: #D2EDF3;
+  color: var(--color-point1);
 }
 
 .message {

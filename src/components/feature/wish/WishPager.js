@@ -9,7 +9,7 @@ export default function WishPager({ page, totalPages, onPrev, onNext }) {
   const rightDisabled = page >= totalPages;
 
   return (
-    <>
+    <div className={styles.pagerLayer}>
       <button
         aria-label="이전"
         onClick={onPrev}
@@ -55,6 +55,6 @@ export default function WishPager({ page, totalPages, onPrev, onNext }) {
           draggable={false}
         />
       </button>
-    </>
+    </div>
   );
 }
