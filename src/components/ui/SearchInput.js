@@ -10,6 +10,7 @@ export default function SearchInput({
   placeholder = "닉네임으로 내 새싹을 찾아보세요",
   className,
   onSearch,
+  onKeyDown,
 }) {
   const [focus, setFocus] = useState(false);
 
@@ -31,6 +32,7 @@ export default function SearchInput({
         placeholder={placeholder}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
+        onKeyDown={onKeyDown}
       />
 
       {value && (
