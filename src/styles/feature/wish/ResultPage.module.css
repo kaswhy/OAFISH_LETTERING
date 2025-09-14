@@ -8,6 +8,10 @@
   -webkit-font-smoothing: antialiased;
 }
 
+.captureHiRes.modalDialog {
+  width: calc(312px * var(--cap-scale, 1.4));
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -43,7 +47,7 @@
 }
 
 .save {
-  background-color: var(--color-white);
+  background-color: #D2EDF3;
   color: var(--color-point1);
 }
 

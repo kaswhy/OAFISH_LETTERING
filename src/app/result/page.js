@@ -54,51 +54,58 @@ function Result() {
     enabled: !!wishId,
   });
 
+  const rAF = () => new Promise((r) => requestAnimationFrame(r));
+
   const handleSaveImage = async () => {
     const node = modalContentRef.current;
     if (!node) return;
-
     try {
-      // 1) 폰트 + 이미지/배경 선로딩
       if (document.fonts?.ready) await document.fonts.ready;
       await preloadResources(node);
 
-      // 2) 렌더 안정화(애니/트랜스폼 끄기) + 두 프레임 대기
-      node.classList.add(styles.captureFreeze);
+      node.style.setProperty("--cap-scale", "1.4");
+      node.classList.add(styles.captureHiRes);
+
       await rAF();
       await rAF();
 
-      // 3) DPR 제한 (iOS <= 2)
       const isIOS =
         /iP(ad|hone|od)/.test(navigator.userAgent) ||
         (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, isIOS ? 2 : 3);
 
-      // 4) 캡처: pixelRatio만 지정 (canvasWidth/Height 제거)
-      const dataUrl = await htmlToImage.toPng(node, {
-        cacheBust: true,
-        backgroundColor: "#F0ECE8",
-        pixelRatio,
-        style: {
-          transform: "none",
-          transformOrigin: "top left",
-          position: "static",
-          margin: "0",
-          boxShadow: "none",
-          letterSpacing: "normal",
-          lineHeight: "normal",
-          filter: "none",
-        },
-      });
+      const candidates = isIOS ? [2, 1.75] : [2.5, 2];
+      let dataUrl;
+      for (const pr of candidates) {
+        try {
+          dataUrl = await htmlToImage.toPng(node, {
+            cacheBust: true,
+            backgroundColor: "#F0ECE8",
+            pixelRatio: pr,
+            style: {
+              transform: "none",
+              transformOrigin: "top left",
+              position: "static",
+              margin: "0",
+              boxShadow: "none",
+              letterSpacing: "normal",
+              lineHeight: "normal",
+              filter: "none",
+            },
+          });
+          break;
+        } catch {}
+      }
+      if (!dataUrl) throw new Error("capture failed");
 
-      const link = document.createElement("a");
-      link.download = "oafish-wish.png";
-      link.href = dataUrl;
-      link.click();
+      const a = document.createElement("a");
+      a.download = "oafish-wish.png";
+      a.href = dataUrl;
+      a.click();
     } catch (e) {
       console.error("이미지 저장 실패:", e);
     } finally {
-      node?.classList.remove(styles.captureFreeze);
+      node.classList.remove(styles.captureHiRes);
+      node.style.removeProperty("--cap-scale");
     }
   };
 
