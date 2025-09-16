@@ -99,6 +99,13 @@
   overflow: visible;
 }
 
+.soilBox {
+  position: relative;
+  width: 100%;
+  padding: 0 16px;
+
+}
+
 .plantGridArea {
   position: relative;
   overflow: visible;
@@ -108,5 +115,5 @@
 .pagerLayer {
   position: absolute;
   inset: 0;
-  pointer-events: none; 
+  pointer-events: none;
 }

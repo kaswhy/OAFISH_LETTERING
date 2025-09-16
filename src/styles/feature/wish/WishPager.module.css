@@ -1,3 +1,20 @@
+.pagerLayer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 55%;
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+
+  padding-left: max(8px, env(safe-area-inset-left));
+  padding-right: max(8px, env(safe-area-inset-right));
+
+  pointer-events: none;
+}
+
 .pagerButton {
   position: absolute;
   top: 55%;
@@ -9,12 +26,16 @@
   z-index: 10;
 }
 
-.left {
-  left: calc(50% - 50vw + env(safe-area-inset-left));
-}
-
-.right {
-  right: calc(50% - 50vw + env(safe-area-inset-right));
+.pagerButton {
+  position: static; 
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 1;
 }
 
 .disabled {
