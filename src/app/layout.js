@@ -3,7 +3,8 @@ import "@/design-system/tokens.css";
 import "@/design-system/typography.css";
 
 export const metadata = {
-  title: "OAFISH",
+  title: "OAFISH WISH PROJECT",
+  description: "꿈을 담은 쪽지와 씨앗을 심어보세요",
   icons: {
     icon: "/assets/favicon.png",
   },
