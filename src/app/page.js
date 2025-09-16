@@ -57,7 +57,7 @@ export default function MainPage() {
               <Button state="active">내 쪽지 심기</Button>
             </Link>
 
-            <Link href="https://blog.naver.com/oafish_official" className={styles.whyLink}>
+            <Link href="https://blog.naver.com/oafish_official/224010492006" className={styles.whyLink}>
               왜 오피쉬는 쪽지를 심나요?
             </Link>
           </section>
