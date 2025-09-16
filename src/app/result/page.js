@@ -227,6 +227,12 @@ function Result() {
       >
         <h2 className={styles.heading}>내 쪽지와 씨앗이 심어졌어요!</h2>
 
+        <p className={styles.description}>
+          꽃이 자라나면 문자로 알림을 보내드릴게요!
+          <br />
+          그때까지 쪽지를 간직한다면 특별한 행운이 찾아올지도..?
+        </p>
+
         <div ref={modalContentRef} className={styles.modalDialog}>
           <WishModalContent
             type={wish.data.plantKey}

@@ -48,7 +48,7 @@ export default function Plant({
     ? type
     : "daisy";
   const src = SRC_MAP[chosen];
-  const alt = `${NAME_MAP[chosen]} 아이콘`;
+  const alt = "";
   const chunks = label ? breakLabelGrapheme(label, 5) : [];
 
   return (
