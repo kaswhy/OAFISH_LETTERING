@@ -5,12 +5,25 @@ import "@/design-system/typography.css";
 import GAListener from "./_ga-listener";
 import Script from "next/script";
 
-
 export const metadata = {
   title: "OAFISH WISH PROJECT",
   description: "꿈을 담은 쪽지와 씨앗을 심어보세요",
   icons: {
     icon: "/assets/favicon.png",
+  },
+  openGraph: {
+    title: "OAFISH WISH PROJECT",
+    description: "꿈을 담은 쪽지와 씨앗을 심어보세요",
+    url: "/",
+    siteName: "OAFISH",
+    images: [
+      {
+        url: "/assets/favicon.png",
+        alt: "OAFISH",
+      },
+    ],
+    locale: "ko_KR",
+    type: "website",
   },
 };
 
