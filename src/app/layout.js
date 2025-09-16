@@ -14,7 +14,7 @@ export const metadata = {
   openGraph: {
     title: "OAFISH WISH PROJECT",
     description: "꿈을 담은 쪽지와 씨앗을 심어보세요",
-    url: "/",
+    url: "https://oafishproject.site",
     siteName: "OAFISH",
     images: [
       {
@@ -24,6 +24,13 @@ export const metadata = {
     ],
     locale: "ko_KR",
     type: "website",
+  },
+
+  alternates: {
+    canonical: "https://oafishproject.site/",
+    languages: {
+      "x-default": "https://oafishproject.site",
+    },
   },
 };
 
