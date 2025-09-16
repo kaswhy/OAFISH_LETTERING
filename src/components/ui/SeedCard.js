@@ -37,7 +37,7 @@ export default function SeedCard({
     >
       <Image
         src={src}
-        alt={`${chosen} seed`}
+        alt=""
         className={styles.image}
         width={98}
         height={110}
