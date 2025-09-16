@@ -247,7 +247,7 @@ function Result() {
             onClick={handleSaveImage}
             disabled={isCapturing}
           >
-            {isCapturing ? "저장 중..." : "이미지로 저장하기"}
+            {isCapturing ? "간직 중..." : "쪽지 간직하기"}
           </Button>
           <Button state="active" onClick={() => router.push("/")}>
             새싹 보러가기
