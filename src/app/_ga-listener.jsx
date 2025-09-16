@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
-export default function GAListener() {
+function GAInner() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -15,4 +15,12 @@ export default function GAListener() {
   }, [pathname, searchParams, GA_ID]);
 
   return null;
+}
+
+export default function GAListener() {
+  return (
+    <Suspense fallback={null}>
+      <GAInner />
+    </Suspense>
+  );
 }
