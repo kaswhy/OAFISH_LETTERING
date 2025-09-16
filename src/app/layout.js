@@ -1,8 +1,13 @@
-import "@/styles/globals.css"; 
+import "@/styles/globals.css";
 import "@/design-system/tokens.css";
-import "@/design-system/typography.css"; 
+import "@/design-system/typography.css";
 
-export const metadata = { title: "OAFISH" };
+export const metadata = {
+  title: "OAFISH",
+  icons: {
+    icon: "/assets/favicon.png",
+  },
+};
 
 export const viewport = {
   width: "device-width",
