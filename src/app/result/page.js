@@ -128,7 +128,18 @@ function Result() {
     preparePage();
   }, [wish, isQueryLoading, isError]);
 
+  const isInstagramBrowser = () => {
+    return navigator.userAgent.includes("Instagram");
+  };
+
   const handleSaveImage = async () => {
+    if (isInstagramBrowser()) {
+      alert(
+        "이미지 저장은 기본 브라우저에서만 가능해요!\n\n오른쪽 상단 '…' 버튼을 누른 후 '외부 브라우저에서 열기'를 선택해주세요."
+      );
+      return;
+    }
+
     const node = modalContentRef.current;
     if (!node || isCapturing) return;
 
