@@ -18,7 +18,7 @@ export const metadata = {
     siteName: "OAFISH",
     images: [
       {
-        url: "/assets/favicon.png",
+        url: "https://oafishproject.site/assets/favicon.png",
         alt: "OAFISH",
       },
     ],
