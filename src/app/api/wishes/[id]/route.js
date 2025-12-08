@@ -19,6 +19,7 @@ export const GET = withError(async (_req, ctx) => {
       plantKey: true,
       nickname: true,
       content: true,
+      reply: true,
       createdAt: true,
     },
   });
