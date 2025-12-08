@@ -56,7 +56,7 @@ export default function WishPlantGrid({ page, nickname, onCardClick, onMeta }) {
           key={w.id}
           type={w.plantKey}
           label={w.nickname}
-          onClick={() => onCardClick?.(w.id)}
+          id={w.id}
         />
       ))}
     </div>

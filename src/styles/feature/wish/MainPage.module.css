@@ -42,28 +42,12 @@
 .description {
   font: var(--font-body1);
   margin-top: 32px;
-  margin-bottom: 20px;
-}
-
-.ctaLink {
-  display: inline-block;
-  text-decoration: none;
-}
-
-.whyLink {
-  font: var(--font-body2);
-  margin-top: 10px;
-  background: transparent;
-  border: 0;
-  color: var(--color-main3);
-  text-decoration: underline;
-  cursor: pointer;
+  margin-bottom: 28px;
 }
 
 .divider {
   position: relative;
   width: 108%;
-  margin-top: 32px;
   margin-left: -21px;
   z-index: 10;
 }

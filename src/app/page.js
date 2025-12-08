@@ -10,7 +10,6 @@ import WishSearchBox from "@/components/feature/wish/WishSearchBox";
 import WishPlantGrid from "@/components/feature/wish/WishPlantGrid";
 import WishDetailModal from "@/components/feature/wish/WishDetailModal";
 import WishPager from "@/components/feature/wish/WishPager";
-import Button from "@/components/ui/Button";
 
 import styles from "@/styles/feature/wish/MainPage.module.css";
 
@@ -52,17 +51,6 @@ export default function MainPage() {
                 응원의 답장을 전해드려요
               </p>
             </div>
-
-            <Link href="/write" className={styles.ctaLink}>
-              <Button state="active">내 쪽지 심기</Button>
-            </Link>
-
-            <Link
-              href="https://blog.naver.com/oafish_official/224010492006"
-              className={styles.whyLink}
-            >
-              왜 오피쉬는 쪽지를 심나요?
-            </Link>
           </section>
 
           <img className={styles.divider} src="/assets/divider.svg" />

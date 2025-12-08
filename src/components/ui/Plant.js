@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import clsx from "clsx";
 import styles from "@/styles/ui/Plant.module.css";
@@ -48,34 +49,27 @@ export default function Plant({
     ? type
     : "daisy";
   const src = SRC_MAP[chosen];
-  const alt = "";
   const chunks = label ? breakLabelGrapheme(label, 5) : [];
 
   return (
-    <button
-      type="button"
-      className={clsx(styles.item, active && styles.active, className)}
-      data-active={active ? "" : undefined}
-      aria-pressed={active}
-      aria-label={label || NAME_MAP[chosen]}
-      title={label || NAME_MAP[chosen]}
-      onClick={onClick}
+    <Link
+      href={`/wishes/${rest.id}`}
+      className={clsx(styles.item, className)}
       {...rest}
     >
       <div className={styles.imageWrap}>
         <Image
           src={src}
-          alt={alt}
+          alt={label}
           className={styles.image}
           width={94}
           height={94}
           draggable={false}
-          priority={false}
         />
       </div>
 
       {label && (
-        <div className={styles.label} aria-hidden="true">
+        <div className={styles.label}>
           {chunks.map((chunk, i) => (
             <span key={i}>
               {chunk}
@@ -84,6 +78,6 @@ export default function Plant({
           ))}
         </div>
       )}
-    </button>
+    </Link>
   );
 }
