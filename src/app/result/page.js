@@ -1,49 +1,54 @@
 "use client";
 
+import Image from "next/image";
 import { Suspense, useRef, useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { QueryClientProvider, useQuery } from "@tanstack/react-query";
 import html2canvas from "html2canvas";
 import { getWish } from "@/lib/wishes.api";
 import { queryClient } from "@/lib/queryClient";
 
 import Button from "@/components/ui/Button";
-import WishModalContent from "@/components/ui/modal-contents/WishModalContent";
 import styles from "@/styles/feature/wish/ResultPage.module.css";
+import InputText from "@/components/ui/InputText";
 
 const rAF = () => new Promise((r) => requestAnimationFrame(r));
 
+const SRC_MAP = {
+  daisy: "/assets/background/daisy.png",
+  rose: "/assets/background/rose.png",
+  freesia: "/assets/background/freesia.png",
+  mugung: "/assets/background/mugung.png",
+  susun: "/assets/background/susun.png",
+  sunflower: "/assets/background/sunflower.png",
+};
+
+const NAME_MAP = {
+  daisy: "데이지",
+  rose: "장미",
+  freesia: "프리지아",
+  mugung: "무궁화",
+  susun: "수선화",
+  sunflower: "해바라기",
+};
+
 async function ensureFontsLoaded() {
-  console.log("Checking font loading status...");
-
   try {
-    if (document.fonts?.ready) {
-      await document.fonts.ready;
-      console.log("document.fonts.ready completed");
-    }
-
+    if (document.fonts?.ready) await document.fonts.ready;
     const fontFaces = Array.from(document.fonts);
-    const loadPromises = fontFaces.map(async (font) => {
-      if (font.status !== "loaded") {
-        try {
-          await font.load();
-          console.log(`Font loaded: ${font.family}`);
-        } catch (e) {
-          console.warn(`Failed to load font: ${font.family}`, e);
+    await Promise.all(
+      fontFaces.map(async (font) => {
+        if (font.status !== "loaded") {
+          try {
+            await font.load();
+          } catch (e) {}
         }
-      }
-    });
-    await Promise.all(loadPromises);
-
+      })
+    );
     await new Promise((resolve) => setTimeout(resolve, 500));
     await rAF();
     await rAF();
-
-    console.log("Font loading check completed");
-  } catch (error) {
-    console.warn("Font loading check failed:", error);
-    await new Promise((resolve) => setTimeout(resolve, 300));
-  }
+  } catch (error) {}
 }
 
 async function preloadResources(root) {
@@ -62,7 +67,7 @@ async function preloadResources(root) {
     [...urls].map(
       (u) =>
         new Promise((res) => {
-          const im = new Image();
+          const im = new window.Image();
           im.onload = () => im.decode().then(res).catch(res);
           im.onerror = res;
           im.src = u;
@@ -75,19 +80,21 @@ function LoadingSpinner() {
   return (
     <div className={styles.loadingContainer}>
       <div className={styles.spinner}></div>
-      <p>새싹을 심는 중...</p>
+      <p>배경화면 불러오는 중...</p>
     </div>
   );
 }
 
-function Result() {
-  const router = useRouter();
+function ResultContent() {
   const searchParams = useSearchParams();
   const wishId = searchParams.get("id");
-  const modalContentRef = useRef(null);
+
+  const captureRef = useRef(null);
+  const containerRef = useRef(null);
 
   const [isPageLoading, setIsPageLoading] = useState(true);
   const [isCapturing, setIsCapturing] = useState(false);
+  const [text, setText] = useState("");
 
   const {
     data: wish,
@@ -100,122 +107,113 @@ function Result() {
   });
 
   useEffect(() => {
-    if (isQueryLoading || isError || !wish) {
-      return;
-    }
-
+    if (isQueryLoading || isError || !wish) return;
     const preparePage = async () => {
       await rAF();
-
-      const node = modalContentRef.current;
+      const node = containerRef.current;
       if (node) {
         try {
-          console.log("Starting page preparation...");
-
           await ensureFontsLoaded();
           await preloadResources(node);
           await new Promise((resolve) => setTimeout(resolve, 300));
-
-          console.log("Page preparation completed");
           setIsPageLoading(false);
         } catch (e) {
-          console.error("Page preparation failed:", e);
           setTimeout(() => setIsPageLoading(false), 1000);
         }
       }
     };
-
     preparePage();
   }, [wish, isQueryLoading, isError]);
 
   const handleSaveImage = async () => {
-    const node = modalContentRef.current;
+    const node = captureRef.current;
     if (!node || isCapturing) return;
 
     setIsCapturing(true);
     try {
-      console.log("Starting image capture...");
-
       await ensureFontsLoaded();
+      node.style.transform = "scale(1)";
 
-      node.style.transform = "translateZ(0)";
-      node.offsetHeight;
       await rAF();
       await rAF();
 
       const isIOS =
         /iP(ad|hone|od)/.test(navigator.userAgent) ||
         (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-      const scale = isIOS ? 2 : 2.5;
-
-      console.log(`Capturing with scale: ${scale}`);
+      const scale = isIOS ? 2 : 3;
 
       const canvas = await html2canvas(node, {
-        backgroundColor: "#F0ECE8",
+        backgroundColor: null,
         scale: scale,
         useCORS: true,
         allowTaint: false,
-        foreignObjectRendering: false,
         logging: false,
-        letterRendering: true,
+        width: node.offsetWidth,
+        height: node.offsetHeight,
+
         onclone: (clonedDoc) => {
-          const clonedElements = clonedDoc.querySelectorAll("*");
-          clonedElements.forEach((el) => {
-            const computedStyle = getComputedStyle(el);
-            if (computedStyle.fontFamily) {
-              el.style.fontFamily = computedStyle.fontFamily;
-              el.style.webkitFontSmoothing = "antialiased";
-              el.style.mozOsxFontSmoothing = "grayscale";
-              el.style.textRendering = "optimizeLegibility";
-            }
+          clonedDoc.querySelectorAll("*").forEach((el) => {
+            if (el.style) el.style.fontFamily = getComputedStyle(el).fontFamily;
           });
-          return clonedDoc;
+
+          if (text) {
+            const clonedContainer = clonedDoc.querySelector(
+              "[data-capture-target]"
+            );
+
+            if (clonedContainer) {
+              const textDiv = clonedDoc.createElement("div");
+              textDiv.innerText = text;
+
+              Object.assign(textDiv.style, {
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+
+                color: "#333",
+                fontStyle: "normal",
+                fontWeight: "400",
+                fontSize: "20px",
+                lineHeight: "140%",
+
+                fontFamily:
+                  '"Yoon-Childfundkorea-DaeHan", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif',
+              });
+
+              clonedContainer.appendChild(textDiv);
+            }
+          }
         },
-
-        imageTimeout: 10000,
         removeContainer: true,
-        width: node.scrollWidth,
-        height: node.scrollHeight,
-
-        x: 0,
-        y: 0,
       });
 
-      console.log(`Canvas created: ${canvas.width}x${canvas.height}`);
-
       const dataUrl = canvas.toDataURL("image/png", 1.0);
-
       const link = document.createElement("a");
       link.download = "oafish-wish.png";
       link.href = dataUrl;
       link.click();
 
       node.style.transform = "";
-
-      console.log("Image capture completed successfully");
     } catch (error) {
-      console.error("Image capture failed:", error);
-
-      let errorMessage = "이미지 저장에 실패했습니다.";
-      if (error.name === "SecurityError") {
-        errorMessage += " (보안 정책으로 인한 제한)";
-      } else if (error.message?.includes("canvas")) {
-        errorMessage += " (캔버스 생성 실패)";
-      }
-
-      alert(`${errorMessage}\n잠시 후 다시 시도해주세요.`);
+      console.error("Capture failed:", error);
+      alert("이미지 저장에 실패했습니다.");
     } finally {
       setIsCapturing(false);
     }
   };
 
-  if (isQueryLoading) {
-    return <LoadingSpinner />;
-  }
+  if (isQueryLoading) return <LoadingSpinner />;
+  if (isError || !wish)
+    return (
+      <div className={styles.message}>배경화면을 불러오지 못했습니다.</div>
+    );
 
-  if (isError || !wish) {
-    return <div className={styles.message}>새싹을 불러오지 못했습니다.</div>;
-  }
+  if (!wish?.data.plantKey) return <LoadingSpinner />;
+
+  const flowerKey = wish.data.plantKey;
+  const src = SRC_MAP[flowerKey];
+  const alt = NAME_MAP[flowerKey];
 
   return (
     <>
@@ -223,34 +221,38 @@ function Result() {
 
       <div
         className={styles.container}
+        ref={containerRef}
         style={{ visibility: isPageLoading ? "hidden" : "visible" }}
       >
-        <h2 className={styles.heading}>내 쪽지와 씨앗이 심어졌어요!</h2>
+        <div ref={captureRef} data-capture-target="true">
+          <Image
+            src={src}
+            alt={alt}
+            width={257}
+            height={457}
+            draggable={false}
+            priority={true}
+            unoptimized={true}
+            className={styles.backgroundImage}
+          />
+        </div>
 
-        <p className={styles.description}>
-          꽃이 자라나면 문자로 알림을 보내드릴게요!
-          <br />
-          그때까지 쪽지를 간직한다면 특별한 행운이 찾아올지도..?
-        </p>
-
-        <div ref={modalContentRef} className={styles.modalDialog}>
-          <WishModalContent
-            type={wish.data.plantKey}
-            text={wish.data.content}
-            author={wish.data.nickname}
+        <div className={styles.inputGroup}>
+          <InputText
+            type="text"
+            placeholder="넣고 싶은 문구를 작성하세요 (20자 이내)"
+            value={text}
+            onChange={(e) => setText(e.target.value.slice(0, 20))}
           />
         </div>
 
         <div className={styles.buttonGroup}>
           <Button
-            style={{ backgroundColor: "#D2EDF3", color: "var(--color-point1)" }}
+            style={{ backgroundColor: "var(--color-point1)", color: "var(--color-white)" }}
             onClick={handleSaveImage}
             disabled={isCapturing}
           >
-            {isCapturing ? "간직 중..." : "쪽지 간직하기"}
-          </Button>
-          <Button state="active" onClick={() => router.push("/")}>
-            새싹 보러가기
+            {isCapturing ? "다운 중..." : "다운받기"}
           </Button>
         </div>
       </div>
@@ -258,18 +260,12 @@ function Result() {
   );
 }
 
-function ResultPage() {
-  return (
-    <Suspense fallback={<div className={styles.message}>로딩 중...</div>}>
-      <Result />
-    </Suspense>
-  );
-}
-
-export default function ProvidedResultPage() {
+export default function ResultPage() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ResultPage />
+      <Suspense fallback={<LoadingSpinner />}>
+        <ResultContent />
+      </Suspense>
     </QueryClientProvider>
   );
 }
