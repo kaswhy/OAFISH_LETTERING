@@ -1,12 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  useMutation,
-  QueryClientProvider,
-  useQueryClient,
-} from "@tanstack/react-query";
-import { queryClient } from "@/lib/queryClient";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createWish } from "@/lib/wishes.api";
 import { useRouter } from "next/navigation";
 
@@ -188,9 +183,5 @@ function WriteForm() {
 }
 
 export default function WritePage() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <WriteForm />
-    </QueryClientProvider>
-  );
+  return <WriteForm />;
 }

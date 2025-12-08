@@ -5,6 +5,7 @@ import "@/design-system/typography.css";
 import { Suspense } from "react";
 import GAListener from "./_ga-listener";
 import Script from "next/script";
+import QueryProvider from "@/components/QueryProvider";
 
 export const metadata = {
   title: "OAFISH WISH PROJECT",
@@ -26,7 +27,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko">
       <body>
-        {children}
+        <QueryProvider>{children}</QueryProvider>
 
         {process.env.NODE_ENV === "production" && GA_ID && (
           <>
@@ -42,7 +43,7 @@ export default function RootLayout({ children }) {
                 gtag('config', '${GA_ID}', { page_path: window.location.pathname });
               `}
             </Script>
-            
+
             <Suspense fallback={null}>
               <GAListener />
             </Suspense>

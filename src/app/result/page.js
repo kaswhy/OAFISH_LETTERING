@@ -3,10 +3,8 @@
 import Image from "next/image";
 import { Suspense, useRef, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { QueryClientProvider, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import html2canvas from "html2canvas";
-import { getWish } from "@/lib/wishes.api";
-import { queryClient } from "@/lib/queryClient";
 
 import Button from "@/components/ui/Button";
 import styles from "@/styles/feature/wish/ResultPage.module.css";
@@ -96,14 +94,9 @@ function ResultContent() {
   const [isCapturing, setIsCapturing] = useState(false);
   const [text, setText] = useState("");
 
-  const {
-    data: wish,
-    isLoading: isQueryLoading,
-    isError,
-  } = useQuery({
+  const { data: wish } = useQuery({
     queryKey: ["wish", wishId],
-    queryFn: () => getWish(wishId),
-    enabled: !!wishId,
+    enabled: false,
   });
 
   useEffect(() => {
@@ -203,13 +196,7 @@ function ResultContent() {
     }
   };
 
-  if (isQueryLoading) return <LoadingSpinner />;
-  if (isError || !wish)
-    return (
-      <div className={styles.message}>배경화면을 불러오지 못했습니다.</div>
-    );
-
-  if (!wish?.data.plantKey) return <LoadingSpinner />;
+  if (!wish?.data?.plantKey) return <LoadingSpinner />;
 
   const flowerKey = wish.data.plantKey;
   const src = SRC_MAP[flowerKey];
@@ -248,7 +235,10 @@ function ResultContent() {
 
         <div className={styles.buttonGroup}>
           <Button
-            style={{ backgroundColor: "var(--color-point1)", color: "var(--color-white)" }}
+            style={{
+              backgroundColor: "var(--color-point1)",
+              color: "var(--color-white)",
+            }}
             onClick={handleSaveImage}
             disabled={isCapturing}
           >
@@ -262,10 +252,8 @@ function ResultContent() {
 
 export default function ResultPage() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Suspense fallback={<LoadingSpinner />}>
-        <ResultContent />
-      </Suspense>
-    </QueryClientProvider>
+    <Suspense fallback={<LoadingSpinner />}>
+      <ResultContent />
+    </Suspense>
   );
 }
