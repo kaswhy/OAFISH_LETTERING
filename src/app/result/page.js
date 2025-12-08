@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { Suspense, useRef, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
 import html2canvas from "html2canvas";
 
 import Button from "@/components/ui/Button";
@@ -85,38 +84,27 @@ function LoadingSpinner() {
 
 function ResultContent() {
   const searchParams = useSearchParams();
-  const wishId = searchParams.get("id");
+  const plantKey = searchParams.get("plantKey");
 
   const captureRef = useRef(null);
   const containerRef = useRef(null);
-
   const [isPageLoading, setIsPageLoading] = useState(true);
   const [isCapturing, setIsCapturing] = useState(false);
   const [text, setText] = useState("");
 
-  const { data: wish } = useQuery({
-    queryKey: ["wish", wishId],
-    enabled: false,
-  });
+  if (!plantKey) return <div>잘못된 접근입니다.</div>;
 
   useEffect(() => {
-    if (isQueryLoading || isError || !wish) return;
-    const preparePage = async () => {
-      await rAF();
-      const node = containerRef.current;
-      if (node) {
-        try {
-          await ensureFontsLoaded();
-          await preloadResources(node);
-          await new Promise((resolve) => setTimeout(resolve, 300));
-          setIsPageLoading(false);
-        } catch (e) {
-          setTimeout(() => setIsPageLoading(false), 1000);
-        }
+    const prepare = async () => {
+      await ensureFontsLoaded();
+      if (containerRef.current) {
+        await preloadResources(containerRef.current);
       }
+      setIsPageLoading(false);
     };
-    preparePage();
-  }, [wish, isQueryLoading, isError]);
+    prepare();
+  }, []);
+
 
   const handleSaveImage = async () => {
     const node = captureRef.current;
@@ -196,11 +184,10 @@ function ResultContent() {
     }
   };
 
-  if (!wish?.data?.plantKey) return <LoadingSpinner />;
+  if (!plantKey) return <LoadingSpinner />;
 
-  const flowerKey = wish.data.plantKey;
-  const src = SRC_MAP[flowerKey];
-  const alt = NAME_MAP[flowerKey];
+  const src = SRC_MAP[plantKey];
+  const alt = NAME_MAP[plantKey];
 
   return (
     <>
