@@ -5,54 +5,52 @@ import clsx from "clsx";
 import styles from "@/styles/feature/wish/WishPager.module.css";
 
 export default function WishPager({ page, totalPages, onPrev, onNext }) {
-  const leftDisabled = page <= 1;
-  const rightDisabled = page >= totalPages;
+  const isPrevDisabled = page <= 1;
+  const isNextDisabled = page >= totalPages;
 
   return (
-    <div className={styles.pagerLayer}>
+    <div className={styles.container}>
       <button
-        aria-label="이전"
+        type="button"
+        aria-label="이전 페이지"
+        aria-disabled={isPrevDisabled}
+        disabled={isPrevDisabled}
         onClick={onPrev}
-        disabled={leftDisabled}
         className={clsx(
-          styles.pagerButton,
+          styles.button,
           styles.left,
-          leftDisabled && styles.disabled
+          isPrevDisabled && styles.disabled
         )}
       >
         <Image
-          src={
-            leftDisabled
-              ? "/assets/chevron-left/inactive.svg"
-              : "/assets/chevron-left/active.svg"
-          }
-          alt="이전"
+          src="/assets/chevron-left/active.svg"
+          alt=""
           width={36}
           height={36}
           draggable={false}
+          className={clsx(isPrevDisabled && styles.iconDisabled)}
         />
       </button>
 
       <button
-        aria-label="다음"
+        type="button"
+        aria-label="다음 페이지"
+        aria-disabled={isNextDisabled}
+        disabled={isNextDisabled}
         onClick={onNext}
-        disabled={rightDisabled}
         className={clsx(
-          styles.pagerButton,
+          styles.button,
           styles.right,
-          rightDisabled && styles.disabled
+          isNextDisabled && styles.disabled
         )}
       >
         <Image
-          src={
-            rightDisabled
-              ? "/assets/chevron-right/inactive.svg"
-              : "/assets/chevron-right/active.svg"
-          }
-          alt="다음"
+          src="/assets/chevron-right/active.svg"
+          alt=""
           width={36}
           height={36}
           draggable={false}
+          className={clsx(isNextDisabled && styles.iconDisabled)}
         />
       </button>
     </div>

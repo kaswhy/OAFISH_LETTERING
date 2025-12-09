@@ -5,7 +5,6 @@ import { useSwipeable } from "react-swipeable";
 
 import WishSearchBox from "@/components/feature/wish/WishSearchBox";
 import WishPlantGrid from "@/components/feature/wish/WishPlantGrid";
-import WishDetailModal from "@/components/feature/wish/WishDetailModal";
 import WishPager from "@/components/feature/wish/WishPager";
 
 import styles from "@/styles/feature/wish/MainPage.module.css";
@@ -14,7 +13,6 @@ export default function MainPage() {
   const [nickname, setNickname] = useState("");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [selectedId, setSelectedId] = useState(null);
   const [isSwiping, setIsSwiping] = useState(false);
 
   const handlers = useSwipeable({
@@ -50,6 +48,7 @@ export default function MainPage() {
         </section>
 
         <img className={styles.divider} src="/assets/divider.svg" />
+
         <section className={styles.garden}>
           <div className={styles.searchInner}>
             <WishSearchBox
@@ -66,9 +65,6 @@ export default function MainPage() {
                 <WishPlantGrid
                   page={page}
                   nickname={nickname}
-                  onCardClick={(id) => {
-                    if (!isSwiping) setSelectedId(id);
-                  }}
                   onMeta={({ totalPages }) => setTotalPages(totalPages)}
                 />
               </div>
@@ -84,8 +80,6 @@ export default function MainPage() {
             </div>
           </div>
         </section>
-
-        <WishDetailModal id={selectedId} onClose={() => setSelectedId(null)} />
       </div>
     </main>
   );
