@@ -6,9 +6,6 @@
   align-items: center;
   justify-content: space-between;
 
-  padding-left: max(8px, env(safe-area-inset-left));
-  padding-right: max(8px, env(safe-area-inset-right));
-
   pointer-events: none;
 }
 
