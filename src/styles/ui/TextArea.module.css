@@ -1,61 +1,53 @@
 .box {
-    position: relative;
-
-    width: 312px;
-    height: 312px;
-
-    padding: 16px;
-
-    background-color: var(--color-main4);
-    box-sizing: border-box;
+  position: relative;
+  background-color: var(--color-main4);
+  padding: 16px;
+  box-sizing: border-box;
+  border-radius: 8px;
 }
 
-.full {
-    width: 100%;
+.md {
+  width: 312px;
+  height: 312px;
+}
+
+.lg {
+  width: 100%;
+  height: 360px;
 }
 
 .input {
-    display: block;
-    resize: none;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: none;
+  outline: none;
+  background: transparent;
 
-    appearance: none;
-    -webkit-appearance: none;
-    background: transparent;
-    border: none;
-    outline: none;
-
-    width: 100%;
-    min-height: 100%;
-
-    font-family: "Yoon-Childfundkorea-Manseh", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    color: var(--color-main1);
-    font-weight: 400;
-    font-style: normal;
-    font-size: 16px;
-    line-height: 150%;
-    letter-spacing: 0;
+  font-family: "Yoon-Childfundkorea-Manseh", system-ui;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--color-main1);
 }
 
 .input::placeholder {
-    color: var(--color-main3);
-    opacity: 1;
-}
-
-.input:focus::placeholder {
-    color: transparent;
+  color: var(--color-main3);
 }
 
 .counter {
-    position: absolute;
-    bottom: 16px;
-    right: 15px;
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
 
-    font-family: "Yoon-Childfundkorea-Daehan", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    color: var(--color-main1);
-    font-weight: 400;
-    font-style: normal;
-    font-size: 14px;
-    line-height: 100%;
-    letter-spacing: 0;
-    white-space: nowrap;
+  font-family: "Yoon-Childfundkorea-Daehan", system-ui;
+  font-size: 14px;
+  color: var(--color-main1);
+}
+
+.counterWarn {
+  color: var(--color-point1);
+}
+
+.counterOver {
+  color: var(--color-error);
 }
