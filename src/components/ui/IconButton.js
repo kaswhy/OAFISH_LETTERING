@@ -5,10 +5,9 @@ import styles from "@/styles/ui/IconButton.module.css";
 export default function IconButton({
   src,
   ariaLabel,
-  width,
-  height,
-  box,
-  disabled,
+  variant = "default",
+  size = 40,
+  disabled = false,
   onClick,
   className,
   ...rest
@@ -16,18 +15,18 @@ export default function IconButton({
   return (
     <button
       type="button"
-      className={clsx(styles.btn, className)}
       aria-label={ariaLabel}
       disabled={disabled}
       onClick={onClick}
-      style={{ width: box, height: box }}
+      className={clsx(styles.btn, styles[variant], className)}
+      style={{ width: size, height: size }}
       {...rest}
     >
       <Image
         src={src}
         alt=""
-        width={width}
-        height={height}
+        width={size * 0.6}
+        height={size * 0.6}
         className={styles.img}
         priority={false}
       />
