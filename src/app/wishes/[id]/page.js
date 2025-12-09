@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { use } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getWish } from "@/lib/wishes.api";
+import { use } from "react";
 import Button from "@/components/ui/Button";
 import styles from "@/styles/feature/wish/WishPage.module.css";
 
@@ -42,60 +42,64 @@ function WishDetailContent({ id }) {
   });
 
   if (isLoading) return <LoadingSpinner />;
+  if (isError)
+    return <div className={styles.loadingContainer}>문제가 발생했어요</div>;
 
-  const flowerKey = data.data.plantKey;
-  const src = SRC_MAP[flowerKey];
-  const alt = NAME_MAP[flowerKey];
+  const { plantKey, nickname, reply, content } = data.data;
+
+  const src = SRC_MAP[plantKey];
+  const alt = NAME_MAP[plantKey];
 
   return (
-    <>
-      {isLoading && <LoadingSpinner />}
-      <div className={styles.container}>
-        <Image
-          src={src}
-          alt={alt}
-          width={180}
-          height={180}
-          draggable={false}
-          priority={true}
-          unoptimized={true}
-        />
+    <div className={styles.container}>
+      <Image
+        src={src}
+        alt={alt}
+        width={180}
+        height={180}
+        draggable={false}
+        priority={true}
+        unoptimized={true}
+      />
 
-        <div className={styles.receiver}>
-          <div>{data.data.nickname}</div>
-          <div>님께</div>
-        </div>
-
-        <div className={styles.reply}>{data.data.reply}</div>
-
-        <div className={styles.dottedLine}></div>
-
-        <div className={styles.sender}>
-          <div>{data.data.nickname}</div>
-          <div>님이 남겼던 쪽지</div>
-        </div>
-
-        <div className={styles.reply}>{data.data.content}</div>
-
-        <div className={styles.downloadButton}>
-          <Link href={`/result?plantKey=${data.data.plantKey}`} className={styles.downloadLink}>
-            <Button
-              style={{
-                backgroundColor: "var(--color-point1)",
-                color: "var(--color-white)",
-              }}
-            >
-              배경화면 다운받기
-            </Button>
-          </Link>
-        </div>
+      <div className={styles.receiver}>
+        <div>{nickname}</div>
+        <div>님께</div>
       </div>
-    </>
+
+      <div className={styles.reply}>{reply}</div>
+
+      <div className={styles.dottedLine}></div>
+
+      <div className={styles.sender}>
+        <div>{nickname}</div>
+        <div>님이 남겼던 쪽지</div>
+      </div>
+
+      <div className={styles.reply}>{content}</div>
+
+      <div className={styles.downloadButton}>
+        <Link
+          href={`/result?plantKey=${plantKey}`}
+          className={styles.downloadLink}
+        >
+          <Button
+            style={{
+              backgroundColor: "var(--color-point1)",
+              color: "var(--color-white)",
+            }}
+          >
+            배경화면 다운받기
+          </Button>
+        </Link>
+      </div>
+    </div>
   );
 }
 
 export default function WishDetailPage({ params }) {
-  const { id } = use(params);
+  const resolved = use(params);
+  const { id } = resolved;
 
   return <WishDetailContent id={id} />;
 }
