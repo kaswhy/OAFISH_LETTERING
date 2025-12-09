@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Suspense, useRef, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import html2canvas from "html2canvas";
