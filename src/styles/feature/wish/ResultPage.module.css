@@ -1,31 +1,10 @@
-.captureFreeze,
-.captureFreeze * {
-  animation: none !important;
-  transition: none !important;
-  transform: none !important;
-  filter: none !important;
-  font-synthesis: none !important;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  font-display: swap;
-}
-
-.captureHiRes.modalDialog {
-  width: calc(312px * var(--cap-scale, 1.4));
-}
-
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
   min-height: 100dvh;
   padding: 44px;
   background-color: var(--color-main4);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
 }
 
 .backgroundImage {
@@ -45,33 +24,20 @@
   color: var(--color-white);
 }
 
-.message {
-  display: grid;
-  place-items: center;
-  min-height: 100vh;
-  color: white;
-  font-size: 1.1rem;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
+/* 로딩 */
 .loadingContainer {
+  position: fixed;
+  inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+
   background-color: var(--color-main4);
   z-index: 10;
+
   color: #333;
   font: var(--font-main1);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-display: swap;
 }
 
 .spinner {
@@ -80,8 +46,6 @@
   border: 5px solid rgba(0, 0, 0, 0.1);
   border-bottom-color: var(--color-point1);
   border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
   animation: rotation 1s linear infinite;
   margin-bottom: 20px;
 }
@@ -90,7 +54,6 @@
   0% {
     transform: rotate(0deg);
   }
-
   100% {
     transform: rotate(360deg);
   }

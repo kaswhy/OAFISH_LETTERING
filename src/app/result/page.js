@@ -6,8 +6,8 @@ import { useSearchParams } from "next/navigation";
 import html2canvas from "html2canvas";
 
 import Button from "@/components/ui/Button";
-import styles from "@/styles/feature/wish/ResultPage.module.css";
 import InputText from "@/components/ui/InputText";
+import styles from "@/styles/feature/wish/ResultPage.module.css";
 
 const rAF = () => new Promise((r) => requestAnimationFrame(r));
 
@@ -30,44 +30,36 @@ const NAME_MAP = {
 };
 
 async function ensureFontsLoaded() {
-  try {
-    if (document.fonts?.ready) await document.fonts.ready;
-    const fontFaces = Array.from(document.fonts);
-    await Promise.all(
-      fontFaces.map(async (font) => {
-        if (font.status !== "loaded") {
-          try {
-            await font.load();
-          } catch (e) {}
-        }
-      })
-    );
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    await rAF();
-    await rAF();
-  } catch (error) {}
+  if (document?.fonts?.ready) {
+    try {
+      await document.fonts.ready;
+    } catch (_) {}
+  }
 }
 
 async function preloadResources(root) {
   const urls = new Set();
+
   root.querySelectorAll("img").forEach((img) => {
-    const u = img.currentSrc || img.src;
-    if (u) urls.add(u);
+    const u = img.getAttribute("src") || img.currentSrc;
+    if (u && !u.startsWith("_next/image")) urls.add(u);
   });
+
   root.querySelectorAll("*").forEach((el) => {
     const bg = getComputedStyle(el).backgroundImage;
     if (!bg || bg === "none") return;
-    const m = [...bg.matchAll(/url\(["']?([^"')]+)["']?\)/g)];
-    m.forEach(([, u]) => urls.add(u));
+    const matches = [...bg.matchAll(/url\(["']?([^"')]+)["']?\)/g)];
+    matches.forEach(([, u]) => urls.add(u));
   });
+
   await Promise.all(
     [...urls].map(
       (u) =>
         new Promise((res) => {
-          const im = new window.Image();
-          im.onload = () => im.decode().then(res).catch(res);
-          im.onerror = res;
-          im.src = u;
+          const img = new window.Image();
+          img.onload = () => img.decode().then(res).catch(res);
+          img.onerror = res;
+          img.src = u;
         })
     )
   );
@@ -76,7 +68,7 @@ async function preloadResources(root) {
 function LoadingSpinner() {
   return (
     <div className={styles.loadingContainer}>
-      <div className={styles.spinner}></div>
+      <div className={styles.spinner} />
       <p>배경화면 불러오는 중...</p>
     </div>
   );
@@ -88,6 +80,7 @@ function ResultContent() {
 
   const captureRef = useRef(null);
   const containerRef = useRef(null);
+
   const [isPageLoading, setIsPageLoading] = useState(true);
   const [isCapturing, setIsCapturing] = useState(false);
   const [text, setText] = useState("");
@@ -105,86 +98,66 @@ function ResultContent() {
     prepare();
   }, []);
 
-
   const handleSaveImage = async () => {
-    const node = captureRef.current;
-    if (!node || isCapturing) return;
+    if (!captureRef.current || isCapturing) return;
 
     setIsCapturing(true);
+    await ensureFontsLoaded();
+
+    const node = captureRef.current;
+
+    const isIOS =
+      /iP(ad|hone|od)/.test(navigator.userAgent) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+    const scale = isIOS ? 2 : 3;
+
     try {
-      await ensureFontsLoaded();
-      node.style.transform = "scale(1)";
-
-      await rAF();
-      await rAF();
-
-      const isIOS =
-        /iP(ad|hone|od)/.test(navigator.userAgent) ||
-        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-      const scale = isIOS ? 2 : 3;
-
       const canvas = await html2canvas(node, {
         backgroundColor: null,
-        scale: scale,
+        scale,
         useCORS: true,
-        allowTaint: false,
-        logging: false,
         width: node.offsetWidth,
         height: node.offsetHeight,
-
         onclone: (clonedDoc) => {
-          clonedDoc.querySelectorAll("*").forEach((el) => {
-            if (el.style) el.style.fontFamily = getComputedStyle(el).fontFamily;
+          if (!text) return;
+
+          const clonedContainer = clonedDoc.querySelector(
+            "[data-capture-target]"
+          );
+          if (!clonedContainer) return;
+
+          const div = clonedDoc.createElement("div");
+          div.innerText = text;
+
+          Object.assign(div.style, {
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            color: "#333",
+            fontWeight: 400,
+            fontSize: "20px",
+            lineHeight: "140%",
+            fontFamily:
+              '"Yoon-Childfundkorea-DaeHan", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif',
           });
 
-          if (text) {
-            const clonedContainer = clonedDoc.querySelector(
-              "[data-capture-target]"
-            );
-
-            if (clonedContainer) {
-              const textDiv = clonedDoc.createElement("div");
-              textDiv.innerText = text;
-
-              Object.assign(textDiv.style, {
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-
-                color: "#333",
-                fontStyle: "normal",
-                fontWeight: "400",
-                fontSize: "20px",
-                lineHeight: "140%",
-
-                fontFamily:
-                  '"Yoon-Childfundkorea-DaeHan", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif',
-              });
-
-              clonedContainer.appendChild(textDiv);
-            }
-          }
+          clonedContainer.appendChild(div);
         },
-        removeContainer: true,
       });
 
-      const dataUrl = canvas.toDataURL("image/png", 1.0);
       const link = document.createElement("a");
       link.download = "oafish-wish.png";
-      link.href = dataUrl;
+      link.href = canvas.toDataURL("image/png", 1.0);
       link.click();
-
-      node.style.transform = "";
-    } catch (error) {
-      console.error("Capture failed:", error);
+    } catch (e) {
       alert("이미지 저장에 실패했습니다.");
+      console.error(e);
     } finally {
       setIsCapturing(false);
     }
   };
-
-  if (!plantKey) return <LoadingSpinner />;
 
   const src = SRC_MAP[plantKey];
   const alt = NAME_MAP[plantKey];
@@ -199,33 +172,27 @@ function ResultContent() {
         style={{ visibility: isPageLoading ? "hidden" : "visible" }}
       >
         <div ref={captureRef} data-capture-target="true">
-          <Image
+          <img
             src={src}
             alt={alt}
             width={257}
             height={457}
             draggable={false}
-            priority={true}
-            unoptimized={true}
             className={styles.backgroundImage}
           />
         </div>
 
         <div className={styles.inputGroup}>
           <InputText
-            type="text"
             placeholder="넣고 싶은 문구를 작성하세요 (20자 이내)"
             value={text}
-            onChange={(e) => setText(e.target.value.slice(0, 20))}
+            onChange={(value) => setText(value.slice(0, 20))}
           />
         </div>
 
         <div className={styles.buttonGroup}>
           <Button
-            style={{
-              backgroundColor: "var(--color-point1)",
-              color: "var(--color-white)",
-            }}
+            className={styles.save}
             onClick={handleSaveImage}
             disabled={isCapturing}
           >
