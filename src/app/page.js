@@ -36,13 +36,15 @@ export default function MainPage() {
             <h3 className={styles.subtitle}>OAFISH 25 FW : IMMATURE</h3>
             <h1 className={styles.title}>OAFISH WISH PROJECT</h1>
             <p className={styles.description}>
-              지금 간절히 이루고 싶은 꿈이 있나요?
+              여러분이 심었던 소망이 꽃으로 피어났어요.
               <br />
-              나의 꿈을 작성한 쪽지와 함께 씨앗을 심어보세요
+              자신의 꽃을 클릭해, 작은 씨앗에 담았던 나만의 꿈과
               <br />
-              2025년이 가기 전, 활짝 핀 나의 꽃과 함께
+              그날의 나에게 도착한 답장을 확인해 보세요.
               <br />
-              응원의 답장을 전해드려요
+              새해에는 하고 싶은 일을 향한 마음이
+              <br />
+              꽃처럼 활짝 만개하는 한 해가 되길 응원합니다.
             </p>
           </div>
         </section>

@@ -26,7 +26,7 @@ export default function IconButton({
         src={src}
         alt=""
         width={size * 0.6}
-        height={size * 0.6}
+        height={size * 0.7}
         className={styles.img}
         priority={false}
       />

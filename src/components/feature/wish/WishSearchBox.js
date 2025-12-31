@@ -45,7 +45,7 @@ export default function WishSearchBox({
       }}
       onSearch={() => submit()}
       onKeyDown={handleKeyDown}
-      placeholder="닉네임으로 내 새싹을 찾아보세요"
+      placeholder="닉네임이나 연락처로 내 꽃을 찾아보세요"
     />
   );
 }

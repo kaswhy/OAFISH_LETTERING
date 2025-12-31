@@ -16,7 +16,7 @@
 }
 
 .buttonGroup {
-  padding-top: 33px;
+  padding-top: 32px;
 }
 
 .save {
@@ -24,7 +24,16 @@
   color: var(--color-white);
 }
 
-/* 로딩 */
+.goHomeLink {
+  text-decoration: none;
+}
+
+.goHomeButton {
+  background-color: var(--color-white);
+  color: var(--color-point1);
+  margin-top: 16px;
+}
+
 .loadingContainer {
   position: fixed;
   inset: 0;

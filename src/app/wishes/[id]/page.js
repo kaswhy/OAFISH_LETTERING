@@ -77,22 +77,6 @@ function WishDetailContent({ id }) {
       </div>
 
       <div className={styles.reply}>{content}</div>
-
-      <div className={styles.downloadButton}>
-        <Link
-          href={`/result?plantKey=${plantKey}`}
-          className={styles.downloadLink}
-        >
-          <Button
-            style={{
-              backgroundColor: "var(--color-point1)",
-              color: "var(--color-white)",
-            }}
-          >
-            배경화면 다운받기
-          </Button>
-        </Link>
-      </div>
     </div>
   );
 }
