@@ -11,10 +11,13 @@ export async function GET(req) {
     if (!parsed.success)
       return fail("Invalid query", 400, parsed.error.flatten());
 
-    const { page, size, nickname } = parsed.data;
+    const { page, size, nickname, phoneNumber } = parsed.data;
 
     const where = {
-      AND: [nickname ? { nickname: { equals: nickname } } : {}],
+      AND: [
+        nickname ? { nickname: { contains: nickname } } : {},
+        phoneNumber ? { phoneNumber: { equals: phoneNumber } } : {},
+      ],
     };
 
     const [total, items] = await Promise.all([
@@ -24,6 +27,7 @@ export async function GET(req) {
           id: true,
           plantKey: true,
           nickname: true,
+          phoneNumber: true,
           createdAt: true,
         },
         where,
