@@ -5,6 +5,7 @@
   align-items: center;
   min-height: 100dvh;
   padding-top: 44px;
+  padding-bottom: 44px;
   background-color: var(--color-main4);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
