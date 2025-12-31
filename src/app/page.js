@@ -11,6 +11,7 @@ import styles from "@/styles/feature/wish/MainPage.module.css";
 
 export default function MainPage() {
   const [nickname, setNickname] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isSwiping, setIsSwiping] = useState(false);
@@ -55,7 +56,14 @@ export default function MainPage() {
           <div className={styles.searchInner}>
             <WishSearchBox
               onSearch={(v) => {
-                setNickname(v);
+                if (/^\d+$/.test(v)) {
+                  setPhoneNumber(v);
+                  setNickname("");
+                }
+                else {
+                  setNickname(v);
+                  setPhoneNumber("");
+                }
                 setPage(1);
               }}
             />
@@ -67,6 +75,7 @@ export default function MainPage() {
                 <WishPlantGrid
                   page={page}
                   nickname={nickname}
+                  phoneNumber={phoneNumber}
                   onMeta={({ totalPages }) => setTotalPages(totalPages)}
                 />
               </div>

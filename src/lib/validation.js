@@ -35,5 +35,11 @@ export const createWishSchema = z.object({
 export const listQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   size: z.coerce.number().int().min(1).max(100).default(9),
+
   nickname: z.string().min(1).max(10).optional(),
+
+  phoneNumber: z
+    .string()
+    .regex(/^\d{11}$/, "전화번호는 11자리 숫자여야 합니다.")
+    .optional(),
 });

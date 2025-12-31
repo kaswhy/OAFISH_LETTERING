@@ -7,12 +7,18 @@ import { listWishes } from "@/lib/wishes.api";
 import Plant from "@/components/ui/Plant";
 import styles from "@/styles/feature/wish/WishPlantGrid.module.css";
 
-export default function WishPlantGrid({ page, nickname, onMeta }) {
+export default function WishPlantGrid({ page, nickname, phoneNumber, onMeta }) {
   const router = useRouter();
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["wishes", { page, size: 9, nickname }],
-    queryFn: () => listWishes({ page, size: 9, nickname }),
+    queryKey: ["wishes", { page, size: 9, nickname, phoneNumber }],
+    queryFn: () =>
+      listWishes({
+        page,
+        size: 9,
+        nickname,
+        phoneNumber,
+      }),
     keepPreviousData: true,
     staleTime: 5000,
   });
