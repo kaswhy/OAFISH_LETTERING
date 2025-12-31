@@ -1,4 +1,5 @@
-import { useState } from "react";
+"use client";
+
 import clsx from "clsx";
 import styles from "@/styles/ui/SearchInput.module.css";
 import IconButton from "./IconButton";
@@ -7,22 +8,25 @@ export default function SearchInput({
   value,
   onChange,
   onClear,
+  onSearch,
   placeholder = "닉네임으로 내 새싹을 찾아보세요",
   className,
-  onSearch,
   onKeyDown,
+  size = "md",
 }) {
-  const [focus, setFocus] = useState(false);
+  const handleKeyDown = (e) => {
+    onKeyDown?.(e);
+    if (e.key === "Enter") onSearch?.();
+  };
 
   return (
-    <div className={clsx(styles.box, focus && styles.focus, className)}>
+    <div className={clsx(styles.container, styles[size], className)}>
       <IconButton
         src="/assets/ic_search.svg"
         ariaLabel="검색"
         onClick={onSearch}
         className={clsx(styles.iconBtn, styles.leftIcon)}
-        width={12}
-        height={14}
+        size={20}
       />
 
       <input
@@ -30,9 +34,7 @@ export default function SearchInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        onFocus={() => setFocus(true)}
-        onBlur={() => setFocus(false)}
-        onKeyDown={onKeyDown}
+        onKeyDown={handleKeyDown}
       />
 
       {value && (
@@ -41,8 +43,7 @@ export default function SearchInput({
           ariaLabel="지우기"
           onClick={onClear}
           className={styles.iconBtn}
-          width={11}
-          height={11}
+          size={18}
         />
       )}
     </div>

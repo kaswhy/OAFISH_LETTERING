@@ -5,28 +5,26 @@ export default {
   title: "UI/TextArea",
   component: TextArea,
   tags: ["autodocs"],
+  args: {
+    value: "",
+    maxLength: 200,
+    useGrapheme: true,
+    placeholder: "이루고 싶은 것을 적어보세요",
+    size: "md",
+  },
   argTypes: {
-    maxLength: { control: { type: "number", min: 0, step: 10 } },
-    placeholder: { control: "text" },
+    size: { control: "radio", options: ["md", "lg"] },
+    useGrapheme: { control: "boolean" },
+    value: { control: "text" },
   },
 };
 
-const Template = (args) => {
-  const [val, setVal] = useState(args.value ?? "");
-  return <TextArea {...args} value={val} onChange={setVal} />;
+export const Default = (args) => {
+  const [text, setText] = useState("");
+  return <TextArea {...args} value={text} onChange={setText} />;
 };
 
-export const Empty = Template.bind({});
-Empty.args = {
-  value: "",
-  placeholder: "이루고 싶은 것을 적어보세요",
-  maxLength: 200,
-  useGrapheme: true,
-};
-
-export const Filled = Template.bind({});
-Filled.args = {
-  value: "이루고 싶은 것 작성중~",
-  maxLength: 200,
-  useGrapheme: true,
+export const WithText = (args) => {
+  const [text, setText] = useState("내 목표는 ...");
+  return <TextArea {...args} value={text} onChange={setText} />;
 };

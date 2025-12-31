@@ -3,11 +3,36 @@
     border: none;
     border-radius: 50%;
     background: transparent;
+
     display: inline-flex;
+    justify-content: flex-start;
     align-items: center;
+    
     cursor: pointer;
+    transition: opacity 0.15s ease;
+}
+
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.default {
+    background: transparent;
+}
+
+.filled {
+    background: var(--color-main5);
+}
+
+.btn:hover:not(:disabled) {
+    opacity: 0.8;
 }
 
 .img {
     display: block;
+}
+
+.leftIcon {
+  justify-content: flex-start;
 }

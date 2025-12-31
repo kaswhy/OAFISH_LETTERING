@@ -1,0 +1,102 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100dvh;
+  padding-top: 44px;
+  background-color: var(--color-main4);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.receiver {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  padding-top: 32px;
+
+  font: var(--font-main2);
+  color: var(--color-main1);
+}
+
+.reply {
+  padding-top: 16px;
+  width: 312px;
+
+  font: var(--font-body1);
+  color: var(--color-main1);
+}
+
+.dottedLine {
+  width: 312px;
+  height: 1px;
+  margin-top: 40px;
+  background-image: repeating-linear-gradient(
+    to right,
+    #94918e 0,
+    #94918e 10px,
+    transparent 10px,
+    transparent 20px
+  );
+}
+
+.sender {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  padding-top: 28px;
+
+  font: var(--font-main2);
+  color: var(--color-main1);
+}
+
+.downloadButton {
+    padding: 40px;
+}
+
+.downloadLink {
+    text-decoration: none;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-main4);
+  z-index: 10;
+  color: #333;
+  font: var(--font-main1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-display: swap;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-bottom-color: var(--color-point1);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

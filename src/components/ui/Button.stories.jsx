@@ -5,14 +5,39 @@ export default {
   component: Button,
   tags: ["autodocs"],
   argTypes: {
-    state: { control: "radio", options: ["active", "inactive"] },
+    variant: {
+      control: "radio",
+      options: ["primary", "secondary"],
+    },
+    size: {
+      control: "radio",
+      options: ["sm", "md", "lg"],
+    },
   },
 };
 
 const Template = (args) => <Button {...args}>내 쪽지 심기</Button>;
 
-export const Active = Template.bind({});
-Active.args = { state: "active" };
+export const Primary = Template.bind({});
+Primary.args = {
+  variant: "primary",
+  size: "md",
+};
 
-export const Inactive = Template.bind({});
-Inactive.args = { state: "inactive" };
+export const Secondary = Template.bind({});
+Secondary.args = {
+  variant: "secondary",
+  size: "md",
+};
+
+export const Small = Template.bind({});
+Small.args = {
+  variant: "primary",
+  size: "sm",
+};
+
+export const Large = Template.bind({});
+Large.args = {
+  variant: "primary",
+  size: "lg",
+};

@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Modal from "./Modal";
 import WishModalContent from "./modal-contents/WishModalContent";
 
 export default {
   title: "UI/Modal/Composed/Wish",
-  component: WishModalContent,
+  component: Modal,
   tags: ["autodocs"],
   argTypes: {
     type: {
@@ -38,13 +38,13 @@ export const Interactive = {
     text: "저는 오피쉬의 정말 왕...\n줄바꿈 테스트",
     author: "오피쉬",
   },
-  render: (args) => {
-    const [open, setOpen] = useState(args.open);
-    useEffect(() => setOpen(args.open), [args.open]); 
+
+  render: ({ open: initialOpen, ...contentProps }) => {
+    const [open, setOpen] = useState(initialOpen);
 
     return (
       <Modal open={open} onClose={() => setOpen(false)}>
-        <WishModalContent {...args} />
+        <WishModalContent {...contentProps} />
       </Modal>
     );
   },

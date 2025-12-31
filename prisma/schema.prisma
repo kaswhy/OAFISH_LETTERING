@@ -22,6 +22,7 @@ model Wish {
   nickname String @db.VarChar(10)
   phoneNumber String @db.VarChar(11)
   content String @db.VarChar(200)
+  reply String? @db.VarChar(200)
   createdAt DateTime @default(now())
 
   @@index([createdAt])
